@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.nomba.com/schemas/nomba/webhook-event.json",
+  "title": "Nomba Webhook Event",
+  "description": "Schema for validating Nomba webhook event payloads delivered to merchant endpoints when subscribed events occur.",
+  "type": "object",
+  "required": ["event_type", "requestId", "data"],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "description": "The type of event that triggered the webhook notification.",
+      "enum": [
+        "payment_success",
+        "payment_failed",
+        "payout_success",
+        "payout_failed",
+        "order_success",
+        "payment_reversal",
+        "payout_refund"
+      ]
+    },
+    "requestId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "A unique identifier for this webhook delivery request, useful for deduplication."
+    },
+    "data": {
+      "type": "object",
+      "description": "The event payload containing merchant, terminal, and transaction details.",
+      "required": ["merchant", "transaction"],
+      "properties": {
+        "merchant": {
+          "$ref": "#/$defs/Merchant"
+        },
+        "terminal": {
+          "$ref": "#/$defs/Terminal"
+        },
+        "transaction": {
+          "$ref": "#/$defs/Transaction"
+        },
+        "order": {
+          "$ref": "#/$defs/Order"
+        },
+        "originalTransactionId": {
+          "type": "string",
+          "description": "The transaction ID of the original payment or payout for reversal and refund events."
+        },
+        "error": {
+          "type": "string",
+          "description": "A description of why the payment or payout failed, present on failure events."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Merchant": {
+      "type": "object",
+      "description": "Merchant account information associated with the event.",
+      "properties": {
+        "walletId": {
+          "type": "string",
+          "description": "The unique identifier for the merchant wallet."
+        },
+        "walletBalance": {
+          "type": "number",
+          "description": "The current wallet balance after the event occurred."
+        },
+        "userId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier of the merchant user."
+        }
+      }
+    },
+    "Terminal": {
+      "type": "object",
+      "description": "POS terminal information, populated for terminal-based transactions.",
+      "properties": {
+        "terminalId": {
+          "type": "string",
+          "description": "The unique identifier of the POS terminal."
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "The serial number of the POS terminal hardware."
+        }
+      }
+    },
+    "Transaction": {
+      "type": "object",
+      "description": "Transaction details for the event.",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "The unique identifier for the transaction."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of transaction, such as vact_transfer for virtual account transfers."
+        },
+        "aliasAccountNumber": {
+          "type": "string",
+          "description": "The alias account number associated with the transaction."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The transaction amount."
+        },
+        "fee": {
+          "type": "number",
+          "description": "The fee charged for the transaction."
+        },
+        "sessionId": {
+          "type": "string",
+          "description": "The session identifier for the transaction."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the transaction.",
+          "enum": ["successful", "failed", "reversed", "refunded"]
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "description": "Checkout order information, present on order_success events.",
+      "properties": {
+        "orderReference": {
+          "type": "string",
+          "description": "The unique reference for the checkout order."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The order amount."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the order."
+        }
+      }
+    }
+  }
+}

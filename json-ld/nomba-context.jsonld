@@ -1,0 +1,199 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "nomba": "https://developer.nomba.com/schemas/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fibo": "https://spec.edmcouncil.org/fibo/ontology/FBC/",
+
+    "Account": {
+      "@id": "nomba:Account",
+      "@context": {
+        "accountId": "nomba:accountId",
+        "accountName": "schema:name",
+        "accountType": "nomba:accountType",
+        "status": "nomba:status",
+        "currency": {
+          "@id": "schema:currency",
+          "@type": "xsd:string"
+        },
+        "balance": {
+          "@id": "nomba:balance",
+          "@type": "xsd:decimal"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "VirtualAccount": {
+      "@id": "nomba:VirtualAccount",
+      "@context": {
+        "accountRef": "nomba:accountRef",
+        "accountName": "schema:name",
+        "accountNumber": "nomba:accountNumber",
+        "bankName": "schema:bankName",
+        "bankCode": "nomba:bankCode",
+        "status": "nomba:status",
+        "expiryDate": {
+          "@id": "nomba:expiryDate",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Transaction": {
+      "@id": "nomba:Transaction",
+      "@context": {
+        "transactionId": "nomba:transactionId",
+        "transactionRef": "nomba:transactionRef",
+        "merchantTxRef": "nomba:merchantTxRef",
+        "amount": {
+          "@id": "schema:amount",
+          "@type": "xsd:decimal"
+        },
+        "fee": {
+          "@id": "nomba:fee",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:currency",
+          "@type": "xsd:string"
+        },
+        "type": "nomba:transactionType",
+        "source": "nomba:transactionSource",
+        "status": "nomba:status",
+        "terminalId": "nomba:terminalId",
+        "narration": "schema:description",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "CheckoutOrder": {
+      "@id": "nomba:CheckoutOrder",
+      "@context": {
+        "orderReference": "nomba:orderReference",
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:decimal"
+        },
+        "currency": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "customerEmail": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "callbackUrl": {
+          "@id": "nomba:callbackUrl",
+          "@type": "@id"
+        },
+        "checkoutLink": {
+          "@id": "nomba:checkoutLink",
+          "@type": "@id"
+        },
+        "status": "nomba:status",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Transfer": {
+      "@id": "nomba:Transfer",
+      "@context": {
+        "transactionId": "nomba:transactionId",
+        "amount": {
+          "@id": "schema:amount",
+          "@type": "xsd:decimal"
+        },
+        "accountNumber": "nomba:accountNumber",
+        "accountName": "schema:name",
+        "bankCode": "nomba:bankCode",
+        "merchantTxRef": "nomba:merchantTxRef",
+        "narration": "schema:description",
+        "status": "nomba:status",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Terminal": {
+      "@id": "nomba:Terminal",
+      "@context": {
+        "terminalId": "nomba:terminalId",
+        "serialNumber": "nomba:serialNumber",
+        "status": "nomba:status",
+        "assignedAt": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Bank": {
+      "@id": "nomba:Bank",
+      "@context": {
+        "bankCode": "nomba:bankCode",
+        "bankName": "schema:name"
+      }
+    },
+
+    "WebhookEvent": {
+      "@id": "nomba:WebhookEvent",
+      "@context": {
+        "event_type": "nomba:eventType",
+        "requestId": {
+          "@id": "nomba:requestId",
+          "@type": "xsd:string"
+        },
+        "data": "nomba:eventData"
+      }
+    },
+
+    "GlobalPayout": {
+      "@id": "nomba:GlobalPayout",
+      "@context": {
+        "transactionId": "nomba:transactionId",
+        "sourceCurrency": "nomba:sourceCurrency",
+        "destinationCurrency": "nomba:destinationCurrency",
+        "sourceAmount": {
+          "@id": "nomba:sourceAmount",
+          "@type": "xsd:decimal"
+        },
+        "destinationAmount": {
+          "@id": "nomba:destinationAmount",
+          "@type": "xsd:decimal"
+        },
+        "rate": {
+          "@id": "nomba:exchangeRate",
+          "@type": "xsd:decimal"
+        },
+        "paymentMethod": "nomba:paymentMethod",
+        "status": "nomba:status",
+        "settledAt": {
+          "@id": "nomba:settledAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

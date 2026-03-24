@@ -1,0 +1,412 @@
+asyncapi: 2.6.0
+info:
+  title: Nomba Webhook Events
+  description: >-
+    The Nomba Webhooks system delivers real-time event notifications via HTTP
+    POST callbacks when activities occur within a customer account. Events
+    include payment successes and failures, payout completions, order
+    updates, payment reversals, and refunds. Webhook payloads are delivered
+    as JSON to merchant-configured URLs and include an optional HMAC
+    signature for payload verification to prevent DDoS or Man-in-the-Middle
+    attacks. Nomba implements a backoff retry policy for failed webhook
+    deliveries.
+  version: '1.0.0'
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+servers:
+  webhookEndpoint:
+    url: '{merchantWebhookUrl}'
+    protocol: https
+    description: >-
+      The merchant-configured HTTPS webhook endpoint URL that receives event
+      notifications from Nomba. Configured through the Nomba dashboard under
+      webhook settings.
+    variables:
+      merchantWebhookUrl:
+        description: >-
+          The URL configured by the merchant in the Nomba dashboard to receive
+          webhook events.
+channels:
+  /webhook:
+    description: >-
+      The webhook delivery channel. Nomba sends HTTP POST requests to the
+      merchant webhook URL when subscribed events occur, such as payment
+      completions, payout events, order updates, and reversals.
+    publish:
+      operationId: receiveWebhookEvent
+      summary: Receive a webhook event notification
+      description: >-
+        Receives webhook event notifications from Nomba when subscribed
+        events occur within the merchant account. Events are delivered as
+        HTTP POST requests with JSON payloads. Merchants must subscribe to
+        specific event types via the Nomba dashboard.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/PaymentSuccess'
+          - $ref: '#/components/messages/PaymentFailed'
+          - $ref: '#/components/messages/PayoutSuccess'
+          - $ref: '#/components/messages/PayoutFailed'
+          - $ref: '#/components/messages/OrderSuccess'
+          - $ref: '#/components/messages/PaymentReversal'
+          - $ref: '#/components/messages/PayoutRefund'
+components:
+  securitySchemes:
+    signatureVerification:
+      type: httpApiKey
+      name: X-Nomba-Signature
+      in: header
+      description: >-
+        HMAC signature for verifying the authenticity of webhook payloads.
+        The signature key is configured when creating the webhook URL in
+        the Nomba dashboard. Verification is optional but strongly
+        recommended to prevent DDoS or Man-in-the-Middle attacks.
+  messages:
+    PaymentSuccess:
+      name: PaymentSuccess
+      title: Payment Success Event
+      summary: >-
+        Triggered when a payment is successfully received in the merchant
+        account, including POS terminal payments, web transactions, app
+        payments, and virtual account transfers.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PaymentSuccessPayload'
+    PaymentFailed:
+      name: PaymentFailed
+      title: Payment Failed Event
+      summary: >-
+        Triggered when a payment attempt fails due to insufficient funds,
+        expired cards, declined transactions, or other payment errors.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PaymentFailedPayload'
+    PayoutSuccess:
+      name: PayoutSuccess
+      title: Payout Success Event
+      summary: >-
+        Triggered when a payout (transfer to a bank account or wallet)
+        is successfully completed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PayoutSuccessPayload'
+    PayoutFailed:
+      name: PayoutFailed
+      title: Payout Failed Event
+      summary: >-
+        Triggered when a payout attempt fails during processing.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PayoutFailedPayload'
+    OrderSuccess:
+      name: OrderSuccess
+      title: Order Success Event
+      summary: >-
+        Triggered when a checkout order is successfully completed and
+        payment has been confirmed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/OrderSuccessPayload'
+    PaymentReversal:
+      name: PaymentReversal
+      title: Payment Reversal Event
+      summary: >-
+        Triggered when a previously successful payment is reversed due
+        to a dispute, chargeback, or system correction.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PaymentReversalPayload'
+    PayoutRefund:
+      name: PayoutRefund
+      title: Payout Refund Event
+      summary: >-
+        Triggered when a payout is refunded back to the merchant account,
+        typically due to an invalid recipient or failed settlement.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/PayoutRefundPayload'
+  schemas:
+    PaymentSuccessPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: payment_success
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+          example: 999111df-9f20-4cf8-8740-3d2fc43c7149
+        data:
+          type: object
+          required:
+            - merchant
+            - transaction
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            terminal:
+              $ref: '#/components/schemas/TerminalData'
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+    PaymentFailedPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: payment_failed
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+        data:
+          type: object
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            terminal:
+              $ref: '#/components/schemas/TerminalData'
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+            error:
+              type: string
+              description: >-
+                A description of why the payment failed.
+    PayoutSuccessPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: payout_success
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+        data:
+          type: object
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+    PayoutFailedPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: payout_failed
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+        data:
+          type: object
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+            error:
+              type: string
+              description: >-
+                A description of why the payout failed.
+    OrderSuccessPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: order_success
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+        data:
+          type: object
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            order:
+              type: object
+              properties:
+                orderReference:
+                  type: string
+                  description: >-
+                    The unique reference for the checkout order.
+                amount:
+                  type: number
+                  format: double
+                  description: >-
+                    The order amount.
+                currency:
+                  type: string
+                  description: >-
+                    The currency of the order.
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+    PaymentReversalPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: payment_reversal
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+        data:
+          type: object
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+            originalTransactionId:
+              type: string
+              description: >-
+                The transaction ID of the original payment that was reversed.
+    PayoutRefundPayload:
+      type: object
+      required:
+        - event_type
+        - requestId
+        - data
+      properties:
+        event_type:
+          type: string
+          description: >-
+            The type of event that triggered the webhook.
+          const: payout_refund
+        requestId:
+          type: string
+          format: uuid
+          description: >-
+            A unique identifier for this webhook delivery request.
+        data:
+          type: object
+          properties:
+            merchant:
+              $ref: '#/components/schemas/MerchantData'
+            transaction:
+              $ref: '#/components/schemas/TransactionData'
+            originalTransactionId:
+              type: string
+              description: >-
+                The transaction ID of the original payout that was refunded.
+    MerchantData:
+      type: object
+      properties:
+        walletId:
+          type: string
+          description: >-
+            The unique identifier for the merchant wallet.
+          example: 5f04b9ee600f1c00084affa2
+        walletBalance:
+          type: number
+          format: double
+          description: >-
+            The current wallet balance after the event.
+          example: 732233.66
+        userId:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier of the merchant user.
+          example: 000000ab-154e-4a11-a0cf-2249fad063e3
+    TerminalData:
+      type: object
+      description: >-
+        Terminal information, populated for POS terminal transactions.
+      properties:
+        terminalId:
+          type: string
+          description: >-
+            The unique identifier of the POS terminal.
+        serialNumber:
+          type: string
+          description: >-
+            The serial number of the POS terminal.
+    TransactionData:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: >-
+            The unique identifier for the transaction.
+          example: API-VACT_TRA-067fg-sdf78ghy-fd7f-4567-b404-3122939dc25f
+        type:
+          type: string
+          description: >-
+            The type of transaction.
+          example: vact_transfer
+        aliasAccountNumber:
+          type: string
+          description: >-
+            The alias account number associated with the transaction.
+          example: '0010721887'
+        fee:
+          type: number
+          format: double
+          description: >-
+            The fee charged for the transaction.
+          example: 150
+        amount:
+          type: number
+          format: double
+          description: >-
+            The transaction amount.
+        sessionId:
+          type: string
+          description: >-
+            The session identifier for the transaction.
+          example: '100004240726191726000236980560'
+        status:
+          type: string
+          description: >-
+            The status of the transaction.
+          enum:
+            - successful
+            - failed
+            - reversed
+            - refunded

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.nomba.com/schemas/nomba/virtual-account.json",
+  "title": "Nomba Virtual Account",
+  "description": "Schema representing a Nomba virtual bank account used for collecting payments via bank transfers.",
+  "type": "object",
+  "required": ["accountRef", "accountName", "accountNumber"],
+  "properties": {
+    "accountRef": {
+      "type": "string",
+      "description": "The unique reference identifier for the virtual account."
+    },
+    "accountName": {
+      "type": "string",
+      "description": "The name associated with the virtual account, typically the customer name.",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "accountNumber": {
+      "type": "string",
+      "description": "The bank account number assigned to the virtual account.",
+      "pattern": "^\\d{10}$"
+    },
+    "bankName": {
+      "type": "string",
+      "description": "The name of the bank providing the virtual account number."
+    },
+    "bankCode": {
+      "type": "string",
+      "description": "The bank code of the issuing bank."
+    },
+    "status": {
+      "type": "string",
+      "description": "The current status of the virtual account.",
+      "enum": ["active", "expired"]
+    },
+    "expiryDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the virtual account expires and stops accepting payments."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the virtual account was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the virtual account was last updated."
+    }
+  }
+}

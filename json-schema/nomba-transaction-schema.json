@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.nomba.com/schemas/nomba/transaction.json",
+  "title": "Nomba Transaction",
+  "description": "Schema representing a Nomba transaction record for payments, transfers, and payouts across the platform.",
+  "type": "object",
+  "required": ["transactionId", "amount", "status"],
+  "properties": {
+    "transactionId": {
+      "type": "string",
+      "description": "The unique identifier for the transaction."
+    },
+    "transactionRef": {
+      "type": "string",
+      "description": "The system-generated transaction reference number."
+    },
+    "merchantTxRef": {
+      "type": "string",
+      "description": "The merchant-provided transaction reference for idempotency and reconciliation."
+    },
+    "amount": {
+      "type": "number",
+      "description": "The transaction amount.",
+      "minimum": 0
+    },
+    "fee": {
+      "type": "number",
+      "description": "The fee charged for the transaction.",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "description": "The ISO 4217 currency code for the transaction.",
+      "pattern": "^[A-Z]{3}$",
+      "example": "NGN"
+    },
+    "type": {
+      "type": "string",
+      "description": "The transaction type indicating the direction of funds.",
+      "enum": ["credit", "debit"]
+    },
+    "source": {
+      "type": "string",
+      "description": "The channel through which the transaction was initiated.",
+      "enum": ["pos", "web", "app", "api"]
+    },
+    "status": {
+      "type": "string",
+      "description": "The current processing status of the transaction.",
+      "enum": ["successful", "pending", "failed", "reversed"]
+    },
+    "terminalId": {
+      "type": "string",
+      "description": "The POS terminal identifier, present for terminal-based transactions."
+    },
+    "rrn": {
+      "type": "string",
+      "description": "The Retrieval Reference Number for POS transactions."
+    },
+    "sessionId": {
+      "type": "string",
+      "description": "The session identifier linking related transaction steps."
+    },
+    "narration": {
+      "type": "string",
+      "description": "A description or note associated with the transaction.",
+      "maxLength": 200
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the transaction was created."
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the transaction was last updated."
+    }
+  }
+}

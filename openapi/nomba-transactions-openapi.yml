@@ -1,0 +1,321 @@
+openapi: 3.1.0
+info:
+  title: Nomba Transactions API
+  description: >-
+    The Nomba Transactions API allows developers to retrieve and manage
+    transaction records. It provides endpoints for fetching account
+    transaction history, filtering transactions by various criteria, and
+    querying transaction details. This API is essential for building
+    reporting dashboards, reconciliation tools, and transaction monitoring
+    systems on top of the Nomba platform.
+  version: '1.0.0'
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+externalDocs:
+  description: Nomba Transactions API Documentation
+  url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+servers:
+  - url: https://api.nomba.com
+    description: Production Server
+  - url: https://sandbox.nomba.com
+    description: Sandbox Server
+tags:
+  - name: Transactions
+    description: >-
+      Endpoints for retrieving transaction history, filtering transactions,
+      and querying transaction details for reconciliation and reporting.
+security:
+  - bearerAuth: []
+paths:
+  /v1/transactions/accounts:
+    get:
+      operationId: fetchAccountTransactions
+      summary: Fetch account transactions
+      description: >-
+        Retrieves a paginated list of transactions associated with the
+        authenticated account. Returns transaction details including
+        amounts, statuses, types, and timestamps.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+        - name: page
+          in: query
+          required: false
+          description: >-
+            The page number for paginated results.
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: pageSize
+          in: query
+          required: false
+          description: >-
+            The number of results per page.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: filterAccountTransactions
+      summary: Filter through transactions
+      description: >-
+        Filters transactions using specified criteria such as transaction
+        reference, status, source, type, terminal ID, or RRN. Returns a
+        paginated list of matching transactions for reconciliation and
+        reporting purposes.
+      tags:
+        - Transactions
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                transactionRef:
+                  type: string
+                  description: >-
+                    Filter by transaction reference.
+                merchantTxRef:
+                  type: string
+                  description: >-
+                    Filter by merchant transaction reference.
+                status:
+                  type: string
+                  description: >-
+                    Filter by transaction status.
+                  enum:
+                    - successful
+                    - pending
+                    - failed
+                    - reversed
+                source:
+                  type: string
+                  description: >-
+                    Filter by transaction source channel.
+                  enum:
+                    - pos
+                    - web
+                    - app
+                    - api
+                type:
+                  type: string
+                  description: >-
+                    Filter by transaction type.
+                  enum:
+                    - credit
+                    - debit
+                terminalId:
+                  type: string
+                  description: >-
+                    Filter by POS terminal identifier.
+                rrn:
+                  type: string
+                  description: >-
+                    Filter by Retrieval Reference Number.
+                startDate:
+                  type: string
+                  format: date
+                  description: >-
+                    Filter transactions from this date.
+                endDate:
+                  type: string
+                  format: date
+                  description: >-
+                    Filter transactions up to this date.
+                page:
+                  type: integer
+                  description: >-
+                    Page number for paginated results.
+                  minimum: 0
+                pageSize:
+                  type: integer
+                  description: >-
+                    Number of results per page.
+                  minimum: 1
+                  maximum: 100
+      responses:
+        '200':
+          description: Filtered transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+        '400':
+          description: Invalid filter parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth2 bearer token obtained from the Nomba Authentication API.
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: >-
+        The unique identifier of the parent business account.
+      schema:
+        type: string
+  schemas:
+    TransactionListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: >-
+                List of transactions matching the query criteria.
+              items:
+                $ref: '#/components/schemas/Transaction'
+            cursor:
+              type: string
+              description: >-
+                Pagination cursor for the next page of results.
+            totalCount:
+              type: integer
+              description: >-
+                Total number of transactions matching the criteria.
+    Transaction:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: >-
+            The unique identifier for the transaction.
+        transactionRef:
+          type: string
+          description: >-
+            The transaction reference number.
+        merchantTxRef:
+          type: string
+          description: >-
+            The merchant-provided transaction reference.
+        amount:
+          type: number
+          format: double
+          description: >-
+            The transaction amount.
+        fee:
+          type: number
+          format: double
+          description: >-
+            The fee charged for the transaction.
+        currency:
+          type: string
+          description: >-
+            The currency of the transaction.
+          example: NGN
+        type:
+          type: string
+          description: >-
+            The transaction type indicating credit or debit.
+          enum:
+            - credit
+            - debit
+        source:
+          type: string
+          description: >-
+            The channel through which the transaction was initiated.
+          enum:
+            - pos
+            - web
+            - app
+            - api
+        status:
+          type: string
+          description: >-
+            The current status of the transaction.
+          enum:
+            - successful
+            - pending
+            - failed
+            - reversed
+        terminalId:
+          type: string
+          description: >-
+            The POS terminal ID if the transaction was a POS payment.
+        rrn:
+          type: string
+          description: >-
+            The Retrieval Reference Number for POS transactions.
+        sessionId:
+          type: string
+          description: >-
+            The session identifier for the transaction.
+        narration:
+          type: string
+          description: >-
+            A description or note associated with the transaction.
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the transaction was created.
+        updatedAt:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the transaction was last updated.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Error status code.
+        description:
+          type: string
+          description: >-
+            Human-readable description of the error.
+        errors:
+          type: array
+          description: >-
+            List of specific error details.
+          items:
+            type: string

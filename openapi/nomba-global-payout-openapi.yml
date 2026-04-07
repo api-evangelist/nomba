@@ -26,6 +26,10 @@ servers:
   - url: https://sandbox.nomba.com
     description: Sandbox Server
 tags:
+  - name: Corridors
+    description: >-
+      Endpoints for listing supported payout corridors and their
+      configurations.
   - name: Exchange Rates
     description: >-
       Endpoints for fetching and locking live exchange rates for
@@ -34,10 +38,6 @@ tags:
     description: >-
       Endpoints for initiating and tracking cross-border payout
       transactions.
-  - name: Corridors
-    description: >-
-      Endpoints for listing supported payout corridors and their
-      configurations.
 security:
   - bearerAuth: []
 paths:

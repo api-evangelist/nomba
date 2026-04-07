@@ -26,13 +26,13 @@ tags:
     description: >-
       Endpoints for submitting card details, processing OTP verification,
       and managing the card payment flow.
-  - name: Saved Cards
-    description: >-
-      Endpoints for retrieving and managing customer saved cards.
   - name: Order Management
     description: >-
       Endpoints for retrieving order details and managing checkout
       transactions.
+  - name: Saved Cards
+    description: >-
+      Endpoints for retrieving and managing customer saved cards.
 security:
   - bearerAuth: []
 paths:

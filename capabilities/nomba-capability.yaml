@@ -1,0 +1,130 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Accounts API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints
+    for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This
+    API serves as the foundation for account management operations within the Nomba ecosystem.
+  tags:
+  - Nomba
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: nomba
+    baseUri: https://api.nomba.com
+    description: Nomba Accounts API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{NOMBA_TOKEN}}'
+    resources:
+    - name: v1-accounts
+      path: /v1/accounts
+      operations:
+      - name: fetchparentaccountdetails
+        method: GET
+        description: Fetch parent account details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounts-balance
+      path: /v1/accounts/balance
+      operations:
+      - name: fetchparentaccountbalance
+        method: GET
+        description: Fetch parent account balance
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounts-accountid-terminals
+      path: /v1/accounts/{accountId}/terminals
+      operations:
+      - name: fetchterminalsassignedtoaccount
+        method: GET
+        description: Fetch terminals assigned to an account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: nomba-rest
+    description: REST adapter for Nomba Accounts API.
+    resources:
+    - path: /v1/accounts
+      name: fetchparentaccountdetails
+      operations:
+      - method: GET
+        name: fetchparentaccountdetails
+        description: Fetch parent account details
+        call: nomba.fetchparentaccountdetails
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/balance
+      name: fetchparentaccountbalance
+      operations:
+      - method: GET
+        name: fetchparentaccountbalance
+        description: Fetch parent account balance
+        call: nomba.fetchparentaccountbalance
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounts/{accountId}/terminals
+      name: fetchterminalsassignedtoaccount
+      operations:
+      - method: GET
+        name: fetchterminalsassignedtoaccount
+        description: Fetch terminals assigned to an account
+        call: nomba.fetchterminalsassignedtoaccount
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: nomba-mcp
+    transport: http
+    description: MCP adapter for Nomba Accounts API for AI agent use.
+    tools:
+    - name: fetchparentaccountdetails
+      description: Fetch parent account details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nomba.fetchparentaccountdetails
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: fetchparentaccountbalance
+      description: Fetch parent account balance
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nomba.fetchparentaccountbalance
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: fetchterminalsassignedtoaccount
+      description: Fetch terminals assigned to an account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nomba.fetchterminalsassignedtoaccount
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    NOMBA_TOKEN: NOMBA_TOKEN

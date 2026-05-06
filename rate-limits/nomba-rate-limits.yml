@@ -4,130 +4,40 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Nomba
 providerId: nomba
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
+  - Rate Limiting
   - Payments
   - Fintech
-  - Banking
-  - Transfers
-  - Virtual Accounts
-  - Checkout
-  - Cross-Border Payments
-  - Cards
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Nomba API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Nigeria
+notes: Nomba does not publish HTTP rate limits on its marketing site, and the API documentation host
+  (docs.api.nomba.com) was unreachable at reconciliation time. Reconcile against the live developer
+  documentation when accessible. Listed limits are scaffold placeholders.
+description: Nomba's public-facing rate-limit policy is not currently documented on accessible web surfaces.
+  Production limits are most likely enforced per merchant API key with idempotency-key support consistent
+  with most Nigerian payment processors. Verify against the current Nomba API reference.
+sources:
+  - https://nomba.com/
+  - https://docs.api.nomba.com/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Nomba Authentication API
-      - Nomba Accounts API
-      - Nomba Virtual Accounts API
-      - Nomba Transfers API
-      - Nomba Online Checkout API
-      - Nomba Charge API
-      - Nomba Transactions API
-      - Nomba Global Payout API
-      - Nomba Checkout SDK
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Nomba Authentication API
-      - Nomba Accounts API
-      - Nomba Virtual Accounts API
-      - Nomba Transfers API
-      - Nomba Online Checkout API
-      - Nomba Charge API
-      - Nomba Transactions API
-      - Nomba Global Payout API
-      - Nomba Checkout SDK
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Nomba Authentication API
-      - Nomba Accounts API
-      - Nomba Virtual Accounts API
-      - Nomba Transfers API
-      - Nomba Online Checkout API
-      - Nomba Charge API
-      - Nomba Transactions API
-      - Nomba Global Payout API
-      - Nomba Checkout SDK
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Nomba Authentication API
-      - Nomba Accounts API
-      - Nomba Virtual Accounts API
-      - Nomba Transfers API
-      - Nomba Online Checkout API
-      - Nomba Charge API
-      - Nomba Transactions API
-      - Nomba Global Payout API
-      - Nomba Checkout SDK
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Nomba Authentication API
-      - Nomba Accounts API
-      - Nomba Virtual Accounts API
-      - Nomba Transfers API
-      - Nomba Online Checkout API
-      - Nomba Charge API
-      - Nomba Transactions API
-      - Nomba Global Payout API
-      - Nomba Checkout SDK
+  - name: Nomba API
+    scope: api_key
+    metric: varies
+    limit: see Nomba API documentation
+    notes: Public docs were unreachable at reconciliation; per-merchant limits typically configured at
+      onboarding.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Idempotency
+    description: Use idempotency keys on payment-creation calls to safely retry on transient errors —
+      standard practice for Nigerian payment processors; verify with current Nomba docs.
+  - name: Webhooks
+    description: Nomba issues webhooks for payment / transfer state changes; consumers should ack within
+      the webhook timeout to avoid retries.
+  - name: Sandbox vs production
+    description: Use Nomba sandbox keys for development to avoid production-quota consumption.
 maintainers:
-  - FN: API Evangelist
-    url: https://apievangelist.com
-    email: info@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com

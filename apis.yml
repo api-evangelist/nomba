@@ -232,7 +232,7 @@ common:
     url: json-schema/nomba-transaction-schema.json
   - type: JSONSchema
     url: json-schema/nomba-checkout-order-schema.json
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/nomba-context.jsonld
 maintainers:
   - FN: API Evangelist

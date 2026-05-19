@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Global Payout API — Payouts
+  description: 'Nomba Global Payout API — Payouts. 2 operations. Lead operation: Authorize a global payout transfer. Self-contained
+    Naftiko capability covering one Nomba business surface.'
+  tags:
+  - Nomba
+  - Payouts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NOMBA_API_KEY: NOMBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: global-payout-payouts
+    baseUri: https://api.nomba.com
+    description: Nomba Global Payout API — Payouts business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-global-payout-transfer
+      path: /v1/global-payout/transfer
+      operations:
+      - name: createglobalpayout
+        method: POST
+        description: Authorize a global payout transfer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-global-payout-transfer-transactionId
+      path: /v1/global-payout/transfer/{transactionId}
+      operations:
+      - name: trackglobalpayout
+        method: GET
+        description: Track a global payout transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: transactionId
+          in: path
+          type: string
+          description: The unique identifier of the payout transaction to track.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.NOMBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: global-payout-payouts-rest
+    port: 8080
+    description: REST adapter for Nomba Global Payout API — Payouts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/global-payout/transfer
+      name: v1-global-payout-transfer
+      description: REST surface for v1-global-payout-transfer.
+      operations:
+      - method: POST
+        name: createglobalpayout
+        description: Authorize a global payout transfer
+        call: global-payout-payouts.createglobalpayout
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/global-payout/transfer/{transactionid}
+      name: v1-global-payout-transfer-transactionid
+      description: REST surface for v1-global-payout-transfer-transactionId.
+      operations:
+      - method: GET
+        name: trackglobalpayout
+        description: Track a global payout transaction
+        call: global-payout-payouts.trackglobalpayout
+        with:
+          transactionId: rest.transactionId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: global-payout-payouts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Nomba Global Payout API — Payouts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: authorize-global-payout-transfer
+      description: Authorize a global payout transfer
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: global-payout-payouts.createglobalpayout
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: track-global-payout-transaction
+      description: Track a global payout transaction
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: global-payout-payouts.trackglobalpayout
+      with:
+        transactionId: tools.transactionId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Global Payout API — Corridors
+  description: 'Nomba Global Payout API — Corridors. 1 operations. Lead operation: List supported payout corridors. Self-contained
+    Naftiko capability covering one Nomba business surface.'
+  tags:
+  - Nomba
+  - Corridors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NOMBA_API_KEY: NOMBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: global-payout-corridors
+    baseUri: https://api.nomba.com
+    description: Nomba Global Payout API — Corridors business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-global-payout-corridors
+      path: /v1/global-payout/corridors
+      operations:
+      - name: listpayoutcorridors
+        method: GET
+        description: List supported payout corridors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.NOMBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: global-payout-corridors-rest
+    port: 8080
+    description: REST adapter for Nomba Global Payout API — Corridors. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/global-payout/corridors
+      name: v1-global-payout-corridors
+      description: REST surface for v1-global-payout-corridors.
+      operations:
+      - method: GET
+        name: listpayoutcorridors
+        description: List supported payout corridors
+        call: global-payout-corridors.listpayoutcorridors
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: global-payout-corridors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Nomba Global Payout API — Corridors. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-supported-payout-corridors
+      description: List supported payout corridors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: global-payout-corridors.listpayoutcorridors
+      outputParameters:
+      - type: object
+        mapping: $.

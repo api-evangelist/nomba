@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Charge API — Card Charge
+  description: 'Nomba Charge API — Card Charge. 3 operations. Lead operation: Submit customer card details. Self-contained
+    Naftiko capability covering one Nomba business surface.'
+  tags:
+  - Nomba
+  - Card Charge
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NOMBA_API_KEY: NOMBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: charge-card-charge
+    baseUri: https://api.nomba.com
+    description: Nomba Charge API — Card Charge business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-checkout-checkout-card-detail
+      path: /v1/checkout/checkout-card-detail
+      operations:
+      - name: submitcustomercarddetails
+        method: POST
+        description: Submit customer card details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-checkout-checkout-card-otp
+      path: /v1/checkout/checkout-card-otp
+      operations:
+      - name: submitcustomercardotp
+        method: POST
+        description: Submit customer card OTP
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-checkout-resend-card-otp
+      path: /v1/checkout/resend-card-otp
+      operations:
+      - name: resendotptocustomer
+        method: POST
+        description: Resend OTP to customer phone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.NOMBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: charge-card-charge-rest
+    port: 8080
+    description: REST adapter for Nomba Charge API — Card Charge. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/checkout/checkout-card-detail
+      name: v1-checkout-checkout-card-detail
+      description: REST surface for v1-checkout-checkout-card-detail.
+      operations:
+      - method: POST
+        name: submitcustomercarddetails
+        description: Submit customer card details
+        call: charge-card-charge.submitcustomercarddetails
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/checkout/checkout-card-otp
+      name: v1-checkout-checkout-card-otp
+      description: REST surface for v1-checkout-checkout-card-otp.
+      operations:
+      - method: POST
+        name: submitcustomercardotp
+        description: Submit customer card OTP
+        call: charge-card-charge.submitcustomercardotp
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/checkout/resend-card-otp
+      name: v1-checkout-resend-card-otp
+      description: REST surface for v1-checkout-resend-card-otp.
+      operations:
+      - method: POST
+        name: resendotptocustomer
+        description: Resend OTP to customer phone
+        call: charge-card-charge.resendotptocustomer
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: charge-card-charge-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Nomba Charge API — Card Charge. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: submit-customer-card-details
+      description: Submit customer card details
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: charge-card-charge.submitcustomercarddetails
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: submit-customer-card-otp
+      description: Submit customer card OTP
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: charge-card-charge.submitcustomercardotp
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resend-otp-customer-phone
+      description: Resend OTP to customer phone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: charge-card-charge.resendotptocustomer
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

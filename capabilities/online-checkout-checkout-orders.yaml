@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Online Checkout API — Checkout Orders
+  description: 'Nomba Online Checkout API — Checkout Orders. 2 operations. Lead operation: Create an online checkout order.
+    Self-contained Naftiko capability covering one Nomba business surface.'
+  tags:
+  - Nomba
+  - Checkout Orders
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NOMBA_API_KEY: NOMBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: online-checkout-checkout-orders
+    baseUri: https://api.nomba.com
+    description: Nomba Online Checkout API — Checkout Orders business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-checkout-order
+      path: /v1/checkout/order
+      operations:
+      - name: createcheckoutorder
+        method: POST
+        description: Create an online checkout order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-checkout-transaction-cancel
+      path: /v1/checkout/transaction/cancel
+      operations:
+      - name: cancelcheckouttransaction
+        method: POST
+        description: Cancel a checkout transaction
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.NOMBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: online-checkout-checkout-orders-rest
+    port: 8080
+    description: REST adapter for Nomba Online Checkout API — Checkout Orders. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/checkout/order
+      name: v1-checkout-order
+      description: REST surface for v1-checkout-order.
+      operations:
+      - method: POST
+        name: createcheckoutorder
+        description: Create an online checkout order
+        call: online-checkout-checkout-orders.createcheckoutorder
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/checkout/transaction/cancel
+      name: v1-checkout-transaction-cancel
+      description: REST surface for v1-checkout-transaction-cancel.
+      operations:
+      - method: POST
+        name: cancelcheckouttransaction
+        description: Cancel a checkout transaction
+        call: online-checkout-checkout-orders.cancelcheckouttransaction
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: online-checkout-checkout-orders-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Nomba Online Checkout API — Checkout Orders. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-online-checkout-order
+      description: Create an online checkout order
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: online-checkout-checkout-orders.createcheckoutorder
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-checkout-transaction
+      description: Cancel a checkout transaction
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: online-checkout-checkout-orders.cancelcheckouttransaction
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

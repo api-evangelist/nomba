@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Charge API — Saved Cards
+  description: 'Nomba Charge API — Saved Cards. 2 operations. Lead operation: Request OTP to validate user before fetching
+    saved cards. Self-contained Naftiko capability covering one Nomba business surface.'
+  tags:
+  - Nomba
+  - Saved Cards
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NOMBA_API_KEY: NOMBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: charge-saved-cards
+    baseUri: https://api.nomba.com
+    description: Nomba Charge API — Saved Cards business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-checkout-request-user-otp
+      path: /v1/checkout/request-user-otp
+      operations:
+      - name: requestuserotpforsavedcards
+        method: POST
+        description: Request OTP to validate user before fetching saved cards
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-checkout-user-card-orderReference
+      path: /v1/checkout/user-card/{orderReference}
+      operations:
+      - name: getusersavedcards
+        method: GET
+        description: Get user saved cards
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderReference
+          in: path
+          type: string
+          description: The order reference used to validate the user session.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.NOMBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: charge-saved-cards-rest
+    port: 8080
+    description: REST adapter for Nomba Charge API — Saved Cards. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/checkout/request-user-otp
+      name: v1-checkout-request-user-otp
+      description: REST surface for v1-checkout-request-user-otp.
+      operations:
+      - method: POST
+        name: requestuserotpforsavedcards
+        description: Request OTP to validate user before fetching saved cards
+        call: charge-saved-cards.requestuserotpforsavedcards
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/checkout/user-card/{orderreference}
+      name: v1-checkout-user-card-orderreference
+      description: REST surface for v1-checkout-user-card-orderReference.
+      operations:
+      - method: GET
+        name: getusersavedcards
+        description: Get user saved cards
+        call: charge-saved-cards.getusersavedcards
+        with:
+          orderReference: rest.orderReference
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: charge-saved-cards-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Nomba Charge API — Saved Cards. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: request-otp-validate-user-before
+      description: Request OTP to validate user before fetching saved cards
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: charge-saved-cards.requestuserotpforsavedcards
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-saved-cards
+      description: Get user saved cards
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: charge-saved-cards.getusersavedcards
+      with:
+        orderReference: tools.orderReference
+      outputParameters:
+      - type: object
+        mapping: $.

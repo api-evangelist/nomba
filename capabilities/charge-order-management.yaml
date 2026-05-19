@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Nomba Charge API — Order Management
+  description: 'Nomba Charge API — Order Management. 1 operations. Lead operation: Get order details by order reference. Self-contained
+    Naftiko capability covering one Nomba business surface.'
+  tags:
+  - Nomba
+  - Order Management
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    NOMBA_API_KEY: NOMBA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: charge-order-management
+    baseUri: https://api.nomba.com
+    description: Nomba Charge API — Order Management business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-checkout-order-orderReference
+      path: /v1/checkout/order/{orderReference}
+      operations:
+      - name: getorderdetails
+        method: GET
+        description: Get order details by order reference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orderReference
+          in: path
+          type: string
+          description: The unique order reference generated when the order was created.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.NOMBA_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: charge-order-management-rest
+    port: 8080
+    description: REST adapter for Nomba Charge API — Order Management. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/checkout/order/{orderreference}
+      name: v1-checkout-order-orderreference
+      description: REST surface for v1-checkout-order-orderReference.
+      operations:
+      - method: GET
+        name: getorderdetails
+        description: Get order details by order reference
+        call: charge-order-management.getorderdetails
+        with:
+          orderReference: rest.orderReference
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: charge-order-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Nomba Charge API — Order Management. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-order-details-order-reference
+      description: Get order details by order reference
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: charge-order-management.getorderdetails
+      with:
+        orderReference: tools.orderReference
+      outputParameters:
+      - type: object
+        mapping: $.

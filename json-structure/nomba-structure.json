@@ -1,0 +1,108 @@
+{
+  "provider": "Nomba",
+  "providerId": "nomba",
+  "kind": "json-structure",
+  "description": "Structural overview of the Nomba API surface; extracted from openapi/.",
+  "schemaCount": 8,
+  "operationCount": 5,
+  "schemas": [
+    {
+      "name": "ExchangeRateListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "RateLockResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PayoutResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CorridorListResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ExchangeRate",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PayoutRecipient",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name",
+        "country"
+      ]
+    },
+    {
+      "name": "Corridor",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/v1/global-payout/rates",
+      "operationId": "fetchExchangeRates",
+      "summary": "Fetch live exchange rates",
+      "tags": [
+        "Exchange Rates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/global-payout/rates/lock",
+      "operationId": "lockExchangeRate",
+      "summary": "Lock an exchange rate",
+      "tags": [
+        "Exchange Rates"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/global-payout/transfer",
+      "operationId": "createGlobalPayout",
+      "summary": "Authorize a global payout transfer",
+      "tags": [
+        "Payouts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/global-payout/transfer/{transactionId}",
+      "operationId": "trackGlobalPayout",
+      "summary": "Track a global payout transaction",
+      "tags": [
+        "Payouts"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/global-payout/corridors",
+      "operationId": "listPayoutCorridors",
+      "summary": "List supported payout corridors",
+      "tags": [
+        "Corridors"
+      ]
+    }
+  ]
+}

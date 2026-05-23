@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExchangeRateListResponse",
+  "title": "ExchangeRateListResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "description": "List of available exchange rates.",
+          "items": {
+            "$ref": "#/components/schemas/ExchangeRate"
+          }
+        }
+      }
+    }
+  }
+}

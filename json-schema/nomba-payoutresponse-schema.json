@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PayoutResponse",
+  "title": "PayoutResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "The unique identifier for the payout transaction."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the payout.",
+          "enum": [
+            "initiated",
+            "processing",
+            "settled",
+            "failed"
+          ]
+        },
+        "sourceCurrency": {
+          "type": "string",
+          "description": "The source currency of the payout."
+        },
+        "destinationCurrency": {
+          "type": "string",
+          "description": "The destination currency of the payout."
+        },
+        "sourceAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount debited in the source currency."
+        },
+        "destinationAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount to be received in the destination currency."
+        },
+        "rate": {
+          "type": "number",
+          "format": "double",
+          "description": "The exchange rate applied."
+        },
+        "fee": {
+          "type": "number",
+          "format": "double",
+          "description": "The fee charged for the payout."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "The payment method used for disbursement.",
+          "enum": [
+            "faster_payments",
+            "sepa",
+            "interac",
+            "bank_transfer",
+            "mobile_money"
+          ]
+        },
+        "merchantTxRef": {
+          "type": "string",
+          "description": "The merchant transaction reference."
+        },
+        "recipient": {
+          "$ref": "#/components/schemas/PayoutRecipient"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the payout was initiated."
+        },
+        "settledAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the payout was settled, if applicable."
+        }
+      }
+    }
+  }
+}

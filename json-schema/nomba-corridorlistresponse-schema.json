@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CorridorListResponse",
+  "title": "CorridorListResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "description": "List of supported payout corridors.",
+          "items": {
+            "$ref": "#/components/schemas/Corridor"
+          }
+        }
+      }
+    }
+  }
+}

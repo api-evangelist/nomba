@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TokenResponse",
+  "title": "TokenResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "The OAuth2 bearer token used to authenticate API requests."
+        },
+        "refresh_token": {
+          "type": "string",
+          "description": "The refresh token that can be used to obtain a new access token."
+        },
+        "token_type": {
+          "type": "string",
+          "description": "The type of token issued.",
+          "example": "Bearer"
+        },
+        "expires_in": {
+          "type": "integer",
+          "description": "The number of seconds until the access token expires.",
+          "example": 3600
+        }
+      }
+    }
+  }
+}

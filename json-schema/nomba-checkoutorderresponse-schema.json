@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CheckoutOrderResponse",
+  "title": "CheckoutOrderResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "orderReference": {
+          "type": "string",
+          "description": "The unique reference for the checkout order."
+        },
+        "checkoutLink": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL to load in a browser for the customer to complete payment."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The payment amount for the order."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the order."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the order."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the order was created."
+        }
+      }
+    }
+  }
+}

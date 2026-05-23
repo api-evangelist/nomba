@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Corridor",
+  "title": "Corridor",
+  "type": "object",
+  "properties": {
+    "country": {
+      "type": "string",
+      "description": "The destination country name."
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "The ISO 3166-1 alpha-2 country code."
+    },
+    "currency": {
+      "type": "string",
+      "description": "The destination currency code."
+    },
+    "paymentMethods": {
+      "type": "array",
+      "description": "The available payment methods for this corridor.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "faster_payments",
+          "sepa",
+          "interac",
+          "bank_transfer",
+          "mobile_money"
+        ]
+      }
+    },
+    "maxAmount": {
+      "type": "number",
+      "format": "double",
+      "description": "The maximum payout amount per transaction in the destination currency."
+    },
+    "settlementTime": {
+      "type": "string",
+      "description": "The estimated settlement time for payouts in this corridor.",
+      "example": "1-3 hours"
+    }
+  }
+}

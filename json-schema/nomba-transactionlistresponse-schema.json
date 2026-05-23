@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TransactionListResponse",
+  "title": "TransactionListResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "description": "List of transactions matching the query criteria.",
+          "items": {
+            "$ref": "#/components/schemas/Transaction"
+          }
+        },
+        "cursor": {
+          "type": "string",
+          "description": "Pagination cursor for the next page of results."
+        },
+        "totalCount": {
+          "type": "integer",
+          "description": "Total number of transactions matching the criteria."
+        }
+      }
+    }
+  }
+}

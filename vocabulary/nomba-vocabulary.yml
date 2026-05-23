@@ -1,0 +1,11 @@
+name: Nomba Domain Vocabulary
+provider: Nomba
+providerId: nomba
+description: Tag-derived vocabulary for the Nomba API surface; sourced from openapi/ tags.
+terms:
+- term: Corridors
+  description: Endpoints for listing supported payout corridors and their configurations.
+- term: Exchange Rates
+  description: Endpoints for fetching and locking live exchange rates for cross-border payouts.
+- term: Payouts
+  description: Endpoints for initiating and tracking cross-border payout transactions.

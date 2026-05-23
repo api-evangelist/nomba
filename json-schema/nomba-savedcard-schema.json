@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SavedCard",
+  "title": "SavedCard",
+  "type": "object",
+  "properties": {
+    "cardId": {
+      "type": "string",
+      "description": "The unique identifier for the saved card."
+    },
+    "cardType": {
+      "type": "string",
+      "description": "The card network brand.",
+      "enum": [
+        "Visa",
+        "Mastercard",
+        "Verve"
+      ]
+    },
+    "last4": {
+      "type": "string",
+      "description": "The last 4 digits of the card number.",
+      "pattern": "^\\d{4}$"
+    },
+    "expiryMonth": {
+      "type": "string",
+      "description": "The expiry month of the card."
+    },
+    "expiryYear": {
+      "type": "string",
+      "description": "The expiry year of the card."
+    },
+    "tokenKey": {
+      "type": "string",
+      "description": "The token key for charging this saved card."
+    }
+  }
+}

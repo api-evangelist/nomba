@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateLockResponse",
+  "title": "RateLockResponse",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Response status code.",
+      "example": "00"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the response.",
+      "example": "Success"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "rateLockId": {
+          "type": "string",
+          "description": "The unique identifier for the locked rate."
+        },
+        "sourceCurrency": {
+          "type": "string",
+          "description": "The source currency."
+        },
+        "destinationCurrency": {
+          "type": "string",
+          "description": "The destination currency."
+        },
+        "rate": {
+          "type": "number",
+          "format": "double",
+          "description": "The locked exchange rate."
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The amount in the source currency."
+        },
+        "convertedAmount": {
+          "type": "number",
+          "format": "double",
+          "description": "The equivalent amount in the destination currency."
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time the rate lock expires (5-minute window)."
+        }
+      }
+    }
+  }
+}

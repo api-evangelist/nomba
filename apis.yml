@@ -228,6 +228,8 @@ common:
   url: json-schema/nomba-checkout-order-schema.json
 - type: JSONLD
   url: json-ld/nomba-context.jsonld
+- type: LLMsTxt
+  url: https://developer.nomba.com/llms.txt
 maintainers:
 - FN: API Evangelist
   url: https://apievangelist.com

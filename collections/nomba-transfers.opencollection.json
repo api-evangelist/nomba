@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Transfers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transfers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch bank codes and names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/transfers/banks",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all supported Nigerian banks along with their corresponding bank codes. These codes are required when initiating transfers to bank accounts."
+        },
+        {
+          "info": {
+            "name": "Perform bank account lookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/transfers/bank/lookup",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies a bank account by looking up the account number and bank code. Returns the account holder name if the account is valid. This should be called before initiating a transfer to confirm the recipient details."
+        },
+        {
+          "info": {
+            "name": "Transfer to a bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/transfers/bank",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a fund transfer from the authenticated Nomba account to an external Nigerian bank account. Requires the recipient account number, bank code, amount, and a unique merchant transaction reference."
+        },
+        {
+          "info": {
+            "name": "Transfer between Nomba accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/transfers/wallet",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates a wallet-to-wallet transfer between two Nomba accounts. Enables instant movement of funds between accounts on the Nomba platform without going through external banking rails."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

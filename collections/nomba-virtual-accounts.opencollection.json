@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Virtual Accounts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Virtual Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a virtual account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/accounts/virtual",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new virtual bank account that can receive payments via bank transfers. Each virtual account is assigned a unique account number. There is no fixed limit on the number of virtual accounts that can be created for customers."
+        },
+        {
+          "info": {
+            "name": "Filter virtual accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/accounts/virtual/filter",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Filters and retrieves virtual accounts based on specified criteria. Supports pagination and filtering by account status, name, or reference."
+        },
+        {
+          "info": {
+            "name": "Fetch a virtual account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/accounts/virtual/:accountRef",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountRef",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference identifier of the virtual account."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific virtual account by its unique account reference identifier."
+        },
+        {
+          "info": {
+            "name": "Update a virtual account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.nomba.com/v1/accounts/virtual/:accountRef",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountRef",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference identifier of the virtual account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the details of an existing virtual account, such as the account name or expiry date."
+        },
+        {
+          "info": {
+            "name": "Expire a virtual account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.nomba.com/v1/accounts/virtual/:identifier",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the virtual account to expire."
+              }
+            ]
+          },
+          "docs": "Expires (deactivates) a virtual account so that it can no longer receive payments. This action is irreversible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,450 @@
+{
+  "item": [
+    {
+      "id": "f53cca31-5eaf-4499-bf5e-b746d4bc686d",
+      "name": "Transactions",
+      "description": {
+        "content": "Endpoints for retrieving transaction history, filtering transactions, and querying transaction details for reconciliation and reporting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6d21d05a-e7f0-4243-af38-90c837cad1c4",
+          "name": "Fetch account transactions",
+          "request": {
+            "name": "Fetch account transactions",
+            "description": {
+              "content": "Retrieves a paginated list of transactions associated with the authenticated account. Returns transaction details including amounts, statuses, types, and timestamps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "transactions",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "The page number for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "20",
+                  "description": "The number of results per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "599fcdc9-37f1-44cc-9a52-0cd20f2ceab8",
+              "name": "Transactions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transactions",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\",\n  \"data\": {\n    \"results\": [\n      {\n        \"transactionId\": \"string\",\n        \"transactionRef\": \"string\",\n        \"merchantTxRef\": \"string\",\n        \"amount\": 9138.776503267054,\n        \"fee\": 6124.686710203014,\n        \"currency\": \"NGN\",\n        \"type\": \"debit\",\n        \"source\": \"pos\",\n        \"status\": \"reversed\",\n        \"terminalId\": \"string\",\n        \"rrn\": \"string\",\n        \"sessionId\": \"string\",\n        \"narration\": \"string\",\n        \"createdAt\": \"1990-02-08T19:47:18.556Z\",\n        \"updatedAt\": \"2002-07-27T13:46:23.508Z\"\n      },\n      {\n        \"transactionId\": \"string\",\n        \"transactionRef\": \"string\",\n        \"merchantTxRef\": \"string\",\n        \"amount\": 7732.144052147813,\n        \"fee\": 4713.97437985574,\n        \"currency\": \"NGN\",\n        \"type\": \"debit\",\n        \"source\": \"app\",\n        \"status\": \"failed\",\n        \"terminalId\": \"string\",\n        \"rrn\": \"string\",\n        \"sessionId\": \"string\",\n        \"narration\": \"string\",\n        \"createdAt\": \"1970-09-17T19:06:17.407Z\",\n        \"updatedAt\": \"1975-02-18T15:07:11.798Z\"\n      }\n    ],\n    \"cursor\": \"string\",\n    \"totalCount\": 5518\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d86842b-cfa5-406d-80ac-f946c04d4b1f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transactions",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae1cf3dd-34b3-4822-a7d3-b8247c641744",
+          "name": "Filter through transactions",
+          "request": {
+            "name": "Filter through transactions",
+            "description": {
+              "content": "Filters transactions using specified criteria such as transaction reference, status, source, type, terminal ID, or RRN. Returns a paginated list of matching transactions for reconciliation and reporting purposes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "transactions",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionRef\": \"<string>\",\n  \"merchantTxRef\": \"<string>\",\n  \"status\": \"<string>\",\n  \"source\": \"<string>\",\n  \"type\": \"<string>\",\n  \"terminalId\": \"<string>\",\n  \"rrn\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e92f1766-621c-4afc-af4d-2a318ae18ce1",
+              "name": "Filtered transactions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transactions",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionRef\": \"<string>\",\n  \"merchantTxRef\": \"<string>\",\n  \"status\": \"<string>\",\n  \"source\": \"<string>\",\n  \"type\": \"<string>\",\n  \"terminalId\": \"<string>\",\n  \"rrn\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\",\n  \"data\": {\n    \"results\": [\n      {\n        \"transactionId\": \"string\",\n        \"transactionRef\": \"string\",\n        \"merchantTxRef\": \"string\",\n        \"amount\": 9138.776503267054,\n        \"fee\": 6124.686710203014,\n        \"currency\": \"NGN\",\n        \"type\": \"debit\",\n        \"source\": \"pos\",\n        \"status\": \"reversed\",\n        \"terminalId\": \"string\",\n        \"rrn\": \"string\",\n        \"sessionId\": \"string\",\n        \"narration\": \"string\",\n        \"createdAt\": \"1990-02-08T19:47:18.556Z\",\n        \"updatedAt\": \"2002-07-27T13:46:23.508Z\"\n      },\n      {\n        \"transactionId\": \"string\",\n        \"transactionRef\": \"string\",\n        \"merchantTxRef\": \"string\",\n        \"amount\": 7732.144052147813,\n        \"fee\": 4713.97437985574,\n        \"currency\": \"NGN\",\n        \"type\": \"debit\",\n        \"source\": \"app\",\n        \"status\": \"failed\",\n        \"terminalId\": \"string\",\n        \"rrn\": \"string\",\n        \"sessionId\": \"string\",\n        \"narration\": \"string\",\n        \"createdAt\": \"1970-09-17T19:06:17.407Z\",\n        \"updatedAt\": \"1975-02-18T15:07:11.798Z\"\n      }\n    ],\n    \"cursor\": \"string\",\n    \"totalCount\": 5518\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e94a096d-4f11-4f5a-bd1c-e2b3b25e6a70",
+              "name": "Invalid filter parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transactions",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionRef\": \"<string>\",\n  \"merchantTxRef\": \"<string>\",\n  \"status\": \"<string>\",\n  \"source\": \"<string>\",\n  \"type\": \"<string>\",\n  \"terminalId\": \"<string>\",\n  \"rrn\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4400886b-8eed-4ce2-ac5d-adf8d55ef3cd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "transactions",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transactionRef\": \"<string>\",\n  \"merchantTxRef\": \"<string>\",\n  \"status\": \"<string>\",\n  \"source\": \"<string>\",\n  \"type\": \"<string>\",\n  \"terminalId\": \"<string>\",\n  \"rrn\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"page\": \"<integer>\",\n  \"pageSize\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nomba.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bfb01360-945e-471c-a08e-0c5c22b87456",
+    "name": "Nomba Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Nomba Transactions API allows developers to retrieve and manage transaction records. It provides endpoints for fetching account transaction history, filtering transactions by various criteria, and querying transaction details. This API is essential for building reporting dashboards, reconciliation tools, and transaction monitoring systems on top of the Nomba platform.\n\nContact Support:\n Name: Nomba Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -4,7 +4,7 @@ description: >-
   Nomba is a Nigerian fintech platform that provides payment infrastructure for businesses, offering APIs for payment
   acceptance, transfers, virtual accounts, and cross-border payouts. Their developer platform enables merchants and
   platforms to integrate card payments, bank transfers, USSD, and QR code payments into applications.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/nomba/refs/heads/main/apis.yml
 created: '2026-03-24'
 modified: '2026-05-19'
@@ -26,7 +26,7 @@ apis:
       supports two authentication methods: Client-Credentials for server-to-server integrations and PKCE (Proof Key for
       Code Exchange) for client-side applications. Developers obtain HTTP bearer tokens that are used to authorize
       subsequent API calls across the Nomba platform.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
     baseURL: https://api.nomba.com
     tags:
@@ -44,7 +44,7 @@ apis:
       The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints
       for retrieving account details, fetching terminals assigned to an account, and managing account-level
       configurations. This API serves as the foundation for account management operations within the Nomba ecosystem.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
     baseURL: https://api.nomba.com
     tags:
@@ -63,7 +63,7 @@ apis:
       payments. There is no fixed limit to the number of virtual accounts that can be created for customers. The API
       supports creating, expiring, and managing virtual accounts, enabling businesses to collect payments via bank
       transfers with unique account numbers assigned to individual customers or transactions.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
     baseURL: https://api.nomba.com
     tags:
@@ -81,7 +81,7 @@ apis:
       The Nomba Transfers API provides endpoints for initiating and managing fund transfers. Developers can look up bank
       codes and names, verify account details, and initiate transfers to Nigerian bank accounts. The API supports
       domestic money transfers and provides the necessary bank metadata for building payment flows within applications.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
     baseURL: https://api.nomba.com
     tags:
@@ -100,7 +100,7 @@ apis:
       channels. It supports Visa, Verve, and Mastercard payments, as well as USSD, bank transfers, and Nomba QR
       payments. The API includes tokenized card payment capabilities, allowing merchants to charge returning customers
       without requiring them to re-enter card details.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
     baseURL: https://api.nomba.com
     tags:
@@ -120,7 +120,7 @@ apis:
       supports OTP submission for card transactions, retrieval of user saved cards, and tokenized card charging. This
       API is designed for merchants and platforms that need programmatic control over the card payment flow, including
       handling 3D Secure authentication steps.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
     baseURL: https://api.nomba.com
     tags:
@@ -139,7 +139,7 @@ apis:
       fetching account transaction history, querying transaction details, and processing refunds. This API is essential
       for building reporting dashboards, reconciliation tools, and transaction monitoring systems on top of the Nomba
       platform.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/products/transactions/fetch-account-transactions
     baseURL: https://api.nomba.com
     tags:
@@ -160,7 +160,7 @@ apis:
       and the Democratic Republic of Congo via Mobile Money. The API embeds FX sourcing and compliance directly into the
       technical layer, eliminating the need for operators to manage foreign exchange processes. It solves capital
       lockups in cross-border trade by handling currency conversion automatically when funds land in a virtual account.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/docs/products/global-payout/introduction
     baseURL: https://api.nomba.com
     tags:
@@ -181,7 +181,7 @@ apis:
       into websites and mobile applications. It includes an iOS SDK and e-commerce plugins such as a WooCommerce gateway
       for WordPress. The SDK supports Visa, Verve, and Mastercard payments along with USSD, bank transfers, and Nomba
       QR, enabling merchants to quickly add payment capabilities without building a custom checkout flow.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.nomba.com/plugins-and-sdk/overview
     baseURL: https://api.nomba.com
     tags:

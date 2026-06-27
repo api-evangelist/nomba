@@ -197,7 +197,7 @@ common:
     url: https://www.linkedin.com/company/nombahq
   - type: Website
     url: https://nomba.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.nomba.com
   - type: Blog
     url: https://nomba-developers.hashnode.dev
@@ -213,7 +213,7 @@ common:
     url: json-schema/nomba-checkout-order-schema.json
   - type: JSONLD
     url: json-ld/nomba-context.jsonld
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.nomba.com/llms.txt
 maintainers:
   - FN: API Evangelist

@@ -3,13 +3,10 @@
   "feeds": [
     {
       "source": "https://nomba-developers.hashnode.dev",
-      "error": "HTTPError"
-    },
-    {
-      "source": "https://developer.nomba.com",
-      "error": "HTTPError"
+      "saved": 0,
+      "error": "HTTP 429 Too Many Requests"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:56:48Z",
+  "post_count": 5
 }

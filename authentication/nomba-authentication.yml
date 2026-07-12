@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/nomba-accounts-openapi.yml, openapi/nomba-authentication-openapi.yml, openapi/nomba-charge-openapi.yml,
+  openapi/nomba-global-payout-openapi.yml, openapi/nomba-online-checkout-openapi.yml, openapi/nomba-transactions-openapi.yml,
+  openapi/nomba-transfers-openapi.yml, openapi/nomba-virtual-accounts-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: OAuth2 bearer token obtained from the Nomba Authentication API.
+  sources:
+  - openapi/nomba-accounts-openapi.yml
+  - openapi/nomba-authentication-openapi.yml
+  - openapi/nomba-charge-openapi.yml
+  - openapi/nomba-global-payout-openapi.yml
+  - openapi/nomba-online-checkout-openapi.yml
+  - openapi/nomba-transactions-openapi.yml
+  - openapi/nomba-transfers-openapi.yml
+  - openapi/nomba-virtual-accounts-openapi.yml

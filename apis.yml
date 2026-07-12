@@ -193,6 +193,10 @@ apis:
       - type: Documentation
         url: https://developer.nomba.com/plugins-and-sdk/overview
 common:
+  - type: DomainSecurity
+    url: security/nomba-domain-security.yml
+  - type: Authentication
+    url: authentication/nomba-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/nombahq
   - type: Website

@@ -2,11 +2,13 @@
   "repo": "nomba",
   "feeds": [
     {
-      "source": "https://nomba-developers.hashnode.dev",
+      "source": "https://developer.nomba.com",
+      "feed_url": "https://developer.nomba.com",
+      "title": "",
       "saved": 0,
-      "error": "HTTP 429 Too Many Requests"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T12:56:48Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 5
 }

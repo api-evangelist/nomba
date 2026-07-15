@@ -193,6 +193,8 @@ apis:
       - type: Documentation
         url: https://developer.nomba.com/plugins-and-sdk/overview
 common:
+  - type: AgenticAccess
+    url: agentic-access/nomba-agentic-access.yml
   - type: DomainSecurity
     url: security/nomba-domain-security.yml
   - type: Authentication

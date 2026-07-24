@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: Nomba Accounts Checkout Orders API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  version: 1.0.0
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+servers:
+- url: https://api.nomba.com
+  description: Production Server
+- url: https://sandbox.nomba.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Checkout Orders
+  description: Endpoints for creating and managing online checkout orders that support multiple payment channels.
+paths:
+  /v1/checkout/order:
+    post:
+      operationId: createCheckoutOrder
+      summary: Create an online checkout order
+      description: Creates a new checkout order and returns a checkout link that can be loaded in a browser to allow the customer to initiate payment. The checkout supports Visa, Verve, Mastercard, USSD, bank transfers, and Nomba QR payments.
+      tags:
+      - Checkout Orders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - order
+              properties:
+                order:
+                  type: object
+                  required:
+                  - amount
+                  - currency
+                  - orderReference
+                  properties:
+                    amount:
+                      type: number
+                      format: double
+                      description: The payment amount for the checkout order.
+                      minimum: 1
+                      example: 10000
+                    currency:
+                      type: string
+                      description: The currency for the payment.
+                      enum:
+                      - NGN
+                      example: NGN
+                    orderReference:
+                      type: string
+                      description: A unique reference for the order provided by the merchant.
+                      example: order_ref_12345
+                    customerEmail:
+                      type: string
+                      format: email
+                      description: The email address of the customer.
+                      example: customer@example.com
+                    callbackUrl:
+                      type: string
+                      format: uri
+                      description: The URL to redirect the customer to after payment completion.
+                      example: https://merchant.com/callback
+                    tokenizeCard:
+                      type: boolean
+                      description: Set to true to tokenize the customer card for future payments.
+                      default: false
+      responses:
+        '200':
+          description: Checkout order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutOrderResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/checkout/transaction/cancel:
+    post:
+      operationId: cancelCheckoutTransaction
+      summary: Cancel a checkout transaction
+      description: Cancels an incomplete checkout transaction. This can be used when a customer abandons the payment flow or when the merchant needs to void an unpaid order.
+      tags:
+      - Checkout Orders
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - orderReference
+              properties:
+                orderReference:
+                  type: string
+                  description: The unique order reference of the transaction to cancel.
+      responses:
+        '200':
+          description: Transaction cancelled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Invalid request or transaction cannot be cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CheckoutOrderResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            orderReference:
+              type: string
+              description: The unique reference for the checkout order.
+            checkoutLink:
+              type: string
+              format: uri
+              description: The URL to load in a browser for the customer to complete payment.
+            amount:
+              type: number
+              format: double
+              description: The payment amount for the order.
+            currency:
+              type: string
+              description: The currency of the order.
+            status:
+              type: string
+              description: The current status of the order.
+            createdAt:
+              type: string
+              format: date-time
+              description: The date and time the order was created.
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 bearer token obtained from the Nomba Authentication API.
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account

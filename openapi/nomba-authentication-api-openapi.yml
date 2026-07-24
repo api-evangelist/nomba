@@ -1,43 +1,30 @@
 openapi: 3.1.0
 info:
-  title: Nomba Authentication API
-  description: >-
-    The Nomba Authentication API provides OAuth2-based authentication for
-    accessing all Nomba API endpoints. It supports two authentication methods:
-    Client-Credentials for server-to-server integrations and PKCE (Proof Key
-    for Code Exchange) for client-side applications. Developers obtain HTTP
-    bearer tokens that are used to authorize subsequent API calls across the
-    Nomba platform.
-  version: '1.0.0'
+  title: Nomba Accounts Authentication API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  version: 1.0.0
   contact:
     name: Nomba Developer Support
     url: https://developer.nomba.com
   termsOfService: https://nomba.com/terms
-externalDocs:
-  description: Nomba Authentication Documentation
-  url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
 servers:
-  - url: https://api.nomba.com
-    description: Production Server
-  - url: https://sandbox.nomba.com
-    description: Sandbox Server
+- url: https://api.nomba.com
+  description: Production Server
+- url: https://sandbox.nomba.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
 tags:
-  - name: Authentication
-    description: >-
-      Endpoints for obtaining, refreshing, and revoking OAuth2 access tokens
-      used to authenticate requests to all Nomba APIs.
+- name: Authentication
+  description: Endpoints for obtaining, refreshing, and revoking OAuth2 access tokens used to authenticate requests to all Nomba APIs.
 paths:
   /v1/auth/token/issue:
     post:
       operationId: obtainAccessToken
       summary: Obtain access token
-      description: >-
-        Obtains an OAuth2 bearer access token using client credentials. The
-        returned token must be included in the Authorization header of all
-        subsequent API requests. Supports both Client-Credentials and PKCE
-        authentication flows.
+      description: Obtains an OAuth2 bearer access token using client credentials. The returned token must be included in the Authorization header of all subsequent API requests. Supports both Client-Credentials and PKCE authentication flows.
       tags:
-        - Authentication
+      - Authentication
       requestBody:
         required: true
         content:
@@ -45,27 +32,23 @@ paths:
             schema:
               type: object
               required:
-                - grant_type
-                - client_id
-                - client_secret
+              - grant_type
+              - client_id
+              - client_secret
               properties:
                 grant_type:
                   type: string
-                  description: >-
-                    The OAuth2 grant type. Use client_credentials for
-                    server-to-server integrations.
+                  description: The OAuth2 grant type. Use client_credentials for server-to-server integrations.
                   enum:
-                    - client_credentials
+                  - client_credentials
                   example: client_credentials
                 client_id:
                   type: string
-                  description: >-
-                    The client ID obtained from the Nomba dashboard.
+                  description: The client ID obtained from the Nomba dashboard.
                   example: your_client_id
                 client_secret:
                   type: string
-                  description: >-
-                    The client secret obtained from the Nomba dashboard.
+                  description: The client secret obtained from the Nomba dashboard.
                   example: your_client_secret
       responses:
         '200':
@@ -90,12 +73,9 @@ paths:
     post:
       operationId: refreshAccessToken
       summary: Refresh an expired token
-      description: >-
-        Refreshes an expired access token using a previously issued refresh
-        token. This allows applications to maintain long-lived sessions without
-        requiring users to re-authenticate.
+      description: Refreshes an expired access token using a previously issued refresh token. This allows applications to maintain long-lived sessions without requiring users to re-authenticate.
       tags:
-        - Authentication
+      - Authentication
       requestBody:
         required: true
         content:
@@ -103,20 +83,18 @@ paths:
             schema:
               type: object
               required:
-                - grant_type
-                - refresh_token
+              - grant_type
+              - refresh_token
               properties:
                 grant_type:
                   type: string
-                  description: >-
-                    The OAuth2 grant type for token refresh.
+                  description: The OAuth2 grant type for token refresh.
                   enum:
-                    - refresh_token
+                  - refresh_token
                   example: refresh_token
                 refresh_token:
                   type: string
-                  description: >-
-                    The refresh token obtained from the initial token issuance.
+                  description: The refresh token obtained from the initial token issuance.
       responses:
         '200':
           description: Token refreshed successfully
@@ -140,14 +118,11 @@ paths:
     post:
       operationId: revokeAccessToken
       summary: Revoke an access token
-      description: >-
-        Revokes a previously issued access token, invalidating it for future
-        use. This is useful when a user logs out or when a token needs to be
-        invalidated for security reasons.
+      description: Revokes a previously issued access token, invalidating it for future use. This is useful when a user logs out or when a token needs to be invalidated for security reasons.
       tags:
-        - Authentication
+      - Authentication
       security:
-        - bearerAuth: []
+      - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -155,12 +130,11 @@ paths:
             schema:
               type: object
               required:
-                - token
+              - token
               properties:
                 token:
                   type: string
-                  description: >-
-                    The access token to revoke.
+                  description: The access token to revoke.
       responses:
         '200':
           description: Token revoked successfully
@@ -181,75 +155,66 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: >-
-        OAuth2 bearer token obtained from the token issuance endpoint.
   schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
     TokenResponse:
       type: object
       properties:
         code:
           type: string
-          description: >-
-            Response status code.
+          description: Response status code.
           example: '00'
         description:
           type: string
-          description: >-
-            Human-readable description of the response.
+          description: Human-readable description of the response.
           example: Success
         data:
           type: object
           properties:
             access_token:
               type: string
-              description: >-
-                The OAuth2 bearer token used to authenticate API requests.
+              description: The OAuth2 bearer token used to authenticate API requests.
             refresh_token:
               type: string
-              description: >-
-                The refresh token that can be used to obtain a new access token.
+              description: The refresh token that can be used to obtain a new access token.
             token_type:
               type: string
-              description: >-
-                The type of token issued.
+              description: The type of token issued.
               example: Bearer
             expires_in:
               type: integer
-              description: >-
-                The number of seconds until the access token expires.
+              description: The number of seconds until the access token expires.
               example: 3600
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: >-
-            Response status code.
-          example: '00'
-        description:
-          type: string
-          description: >-
-            Human-readable description of the response.
-          example: Success
     ErrorResponse:
       type: object
       properties:
         code:
           type: string
-          description: >-
-            Error status code.
+          description: Error status code.
         description:
           type: string
-          description: >-
-            Human-readable description of the error.
+          description: Human-readable description of the error.
         errors:
           type: array
-          description: >-
-            List of specific error details.
+          description: List of specific error details.
           items:
             type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 bearer token obtained from the Nomba Authentication API.
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account

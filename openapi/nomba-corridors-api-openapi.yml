@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Nomba Accounts Corridors API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  version: 1.0.0
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+servers:
+- url: https://api.nomba.com
+  description: Production Server
+- url: https://sandbox.nomba.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Corridors
+  description: Endpoints for listing supported payout corridors and their configurations.
+paths:
+  /v1/global-payout/corridors:
+    get:
+      operationId: listPayoutCorridors
+      summary: List supported payout corridors
+      description: Retrieves the list of supported cross-border payout corridors along with their configurations, limits, settlement times, and available payment methods.
+      tags:
+      - Corridors
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Corridors retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorridorListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CorridorListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of supported payout corridors.
+              items:
+                $ref: '#/components/schemas/Corridor'
+    Corridor:
+      type: object
+      properties:
+        country:
+          type: string
+          description: The destination country name.
+        countryCode:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code.
+        currency:
+          type: string
+          description: The destination currency code.
+        paymentMethods:
+          type: array
+          description: The available payment methods for this corridor.
+          items:
+            type: string
+            enum:
+            - faster_payments
+            - sepa
+            - interac
+            - bank_transfer
+            - mobile_money
+        maxAmount:
+          type: number
+          format: double
+          description: The maximum payout amount per transaction in the destination currency.
+        settlementTime:
+          type: string
+          description: The estimated settlement time for payouts in this corridor.
+          example: 1-3 hours
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 bearer token obtained from the Nomba Authentication API.
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account

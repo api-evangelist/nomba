@@ -1,0 +1,232 @@
+openapi: 3.1.0
+info:
+  title: Nomba Accounts Exchange Rates API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  version: 1.0.0
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+servers:
+- url: https://api.nomba.com
+  description: Production Server
+- url: https://sandbox.nomba.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Exchange Rates
+  description: Endpoints for fetching and locking live exchange rates for cross-border payouts.
+paths:
+  /v1/global-payout/rates:
+    get:
+      operationId: fetchExchangeRates
+      summary: Fetch live exchange rates
+      description: Retrieves the current live exchange rates for all supported payout corridors. Rates are indicative and may change. Use the rate lock endpoint to secure a rate before initiating a payout.
+      tags:
+      - Exchange Rates
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      - name: sourceCurrency
+        in: query
+        required: false
+        description: Filter rates by source currency.
+        schema:
+          type: string
+          enum:
+          - NGN
+          - USDT
+          - USDC
+      - name: destinationCurrency
+        in: query
+        required: false
+        description: Filter rates by destination currency.
+        schema:
+          type: string
+          enum:
+          - GBP
+          - EUR
+          - CAD
+          - CDF
+      responses:
+        '200':
+          description: Exchange rates retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRateListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/global-payout/rates/lock:
+    post:
+      operationId: lockExchangeRate
+      summary: Lock an exchange rate
+      description: Locks the current exchange rate for a specified corridor for five minutes. The locked rate is guaranteed for the duration and must be used when authorizing the payout transfer. This eliminates slippage on volatile corridors and removes reconciliation disputes.
+      tags:
+      - Exchange Rates
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceCurrency
+              - destinationCurrency
+              - amount
+              properties:
+                sourceCurrency:
+                  type: string
+                  description: The source currency for the payout.
+                  enum:
+                  - NGN
+                  - USDT
+                  - USDC
+                destinationCurrency:
+                  type: string
+                  description: The destination currency for the payout.
+                  enum:
+                  - GBP
+                  - EUR
+                  - CAD
+                  - CDF
+                amount:
+                  type: number
+                  format: double
+                  description: The payout amount in the source currency.
+                  minimum: 1
+      responses:
+        '200':
+          description: Exchange rate locked successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLockResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    RateLockResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            rateLockId:
+              type: string
+              description: The unique identifier for the locked rate.
+            sourceCurrency:
+              type: string
+              description: The source currency.
+            destinationCurrency:
+              type: string
+              description: The destination currency.
+            rate:
+              type: number
+              format: double
+              description: The locked exchange rate.
+            amount:
+              type: number
+              format: double
+              description: The amount in the source currency.
+            convertedAmount:
+              type: number
+              format: double
+              description: The equivalent amount in the destination currency.
+            expiresAt:
+              type: string
+              format: date-time
+              description: The date and time the rate lock expires (5-minute window).
+    ExchangeRateListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of available exchange rates.
+              items:
+                $ref: '#/components/schemas/ExchangeRate'
+    ExchangeRate:
+      type: object
+      properties:
+        sourceCurrency:
+          type: string
+          description: The source currency code.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The destination currency code.
+          example: GBP
+        rate:
+          type: number
+          format: double
+          description: The current indicative exchange rate.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time the rate was last updated.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 bearer token obtained from the Nomba Authentication API.
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account

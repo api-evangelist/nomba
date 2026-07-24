@@ -1,0 +1,217 @@
+openapi: 3.1.0
+info:
+  title: Nomba Accounts Tokenized Cards API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  version: 1.0.0
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+servers:
+- url: https://api.nomba.com
+  description: Production Server
+- url: https://sandbox.nomba.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Tokenized Cards
+  description: Endpoints for managing and charging tokenized card data for returning customers.
+paths:
+  /v1/checkout/tokenized-card-data:
+    get:
+      operationId: listTokenizedCards
+      summary: List tokenized cards
+      description: Retrieves a list of tokenized card data stored for the merchant. Tokenized cards enable merchants to charge returning customers without requiring them to re-enter card details.
+      tags:
+      - Tokenized Cards
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Tokenized cards retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenizedCardListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/checkout/tokenized-card-payment:
+    post:
+      operationId: chargeTokenizedCard
+      summary: Charge a customer using tokenized card data
+      description: Processes a payment using a previously tokenized card. This allows merchants to charge returning customers using unique tokens instead of requiring sensitive card details to be re-entered.
+      tags:
+      - Tokenized Cards
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - order
+              - tokenKey
+              properties:
+                order:
+                  type: object
+                  required:
+                  - amount
+                  - currency
+                  - orderReference
+                  properties:
+                    amount:
+                      type: number
+                      format: double
+                      description: The payment amount to charge.
+                      minimum: 1
+                    currency:
+                      type: string
+                      description: The currency for the payment.
+                      enum:
+                      - NGN
+                    orderReference:
+                      type: string
+                      description: A unique order reference for the payment.
+                    customerEmail:
+                      type: string
+                      format: email
+                      description: The email address of the customer.
+                tokenKey:
+                  type: string
+                  description: The token key representing the customer saved card.
+      responses:
+        '200':
+          description: Tokenized card charged successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChargeResponse'
+        '400':
+          description: Invalid request or charge failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    TokenizedCardListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of tokenized cards.
+              items:
+                $ref: '#/components/schemas/TokenizedCard'
+    TokenizedCard:
+      type: object
+      properties:
+        tokenKey:
+          type: string
+          description: The unique token representing the saved card.
+        cardType:
+          type: string
+          description: The card network brand.
+          enum:
+          - Visa
+          - Mastercard
+          - Verve
+        last4:
+          type: string
+          description: The last 4 digits of the card number.
+          pattern: ^\d{4}$
+        expiryMonth:
+          type: string
+          description: The expiry month of the card.
+        expiryYear:
+          type: string
+          description: The expiry year of the card.
+        customerEmail:
+          type: string
+          format: email
+          description: The email address of the card holder.
+    ChargeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            orderReference:
+              type: string
+              description: The order reference for the charged transaction.
+            transactionId:
+              type: string
+              description: The unique identifier for the transaction.
+            status:
+              type: string
+              description: The status of the charge.
+              enum:
+              - successful
+              - pending
+              - failed
+            amount:
+              type: number
+              format: double
+              description: The amount charged.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 bearer token obtained from the Nomba Authentication API.
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account

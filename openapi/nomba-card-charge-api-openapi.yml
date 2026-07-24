@@ -1,0 +1,259 @@
+openapi: 3.1.0
+info:
+  title: Nomba Accounts Card Charge API
+  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  version: 1.0.0
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+servers:
+- url: https://api.nomba.com
+  description: Production Server
+- url: https://sandbox.nomba.com
+  description: Sandbox Server
+security:
+- bearerAuth: []
+tags:
+- name: Card Charge
+  description: Endpoints for submitting card details, processing OTP verification, and managing the card payment flow.
+paths:
+  /v1/checkout/checkout-card-detail:
+    post:
+      operationId: submitCustomerCardDetails
+      summary: Submit customer card details
+      description: Submits customer card details to initiate a card payment. This is the first step in the server-to-server card charge flow. The API will return instructions for the next step, which typically involves OTP verification or 3D Secure authentication.
+      tags:
+      - Card Charge
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cardNumber
+              - expiryMonth
+              - expiryYear
+              - cvv
+              - orderReference
+              properties:
+                cardNumber:
+                  type: string
+                  description: The full card number (PAN).
+                  pattern: ^\d{13,19}$
+                expiryMonth:
+                  type: string
+                  description: The card expiry month (MM format).
+                  pattern: ^\d{2}$
+                  example: '12'
+                expiryYear:
+                  type: string
+                  description: The card expiry year (YY format).
+                  pattern: ^\d{2}$
+                  example: '25'
+                cvv:
+                  type: string
+                  description: The card verification value.
+                  pattern: ^\d{3,4}$
+                pin:
+                  type: string
+                  description: The card PIN, required for local card transactions.
+                  pattern: ^\d{4}$
+                orderReference:
+                  type: string
+                  description: The order reference from a previously created checkout order.
+                tokenizedCard:
+                  type: boolean
+                  description: Set to true to tokenize the card for future payments.
+                  default: false
+      responses:
+        '200':
+          description: Card details submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardChargeResponse'
+        '400':
+          description: Invalid card details or request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/checkout/checkout-card-otp:
+    post:
+      operationId: submitCustomerCardOtp
+      summary: Submit customer card OTP
+      description: Submits the OTP (One-Time Password) sent to the customer phone or email to complete card payment verification. This is typically the second step in the server-to-server card charge flow after card details have been submitted.
+      tags:
+      - Card Charge
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - otp
+              - orderReference
+              - transactionId
+              properties:
+                otp:
+                  type: string
+                  description: The OTP received by the customer.
+                  pattern: ^\d{4,8}$
+                orderReference:
+                  type: string
+                  description: The order reference for the transaction.
+                transactionId:
+                  type: string
+                  description: The transaction ID from the card details submission step.
+      responses:
+        '200':
+          description: OTP verified and payment processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardChargeResponse'
+        '400':
+          description: Invalid OTP or request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/checkout/resend-card-otp:
+    post:
+      operationId: resendOtpToCustomer
+      summary: Resend OTP to customer phone
+      description: Resends the OTP to the customer phone number if the original OTP was not received, was incorrect, or has expired.
+      tags:
+      - Card Charge
+      parameters:
+      - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - orderReference
+              - transactionId
+              properties:
+                orderReference:
+                  type: string
+                  description: The order reference for the transaction.
+                transactionId:
+                  type: string
+                  description: The transaction ID from the card details submission step.
+      responses:
+        '200':
+          description: OTP resent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
+  schemas:
+    CardChargeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            transactionId:
+              type: string
+              description: The unique identifier for the transaction.
+            orderReference:
+              type: string
+              description: The order reference for the transaction.
+            status:
+              type: string
+              description: The current status of the charge.
+              enum:
+              - otp_required
+              - 3ds_required
+              - successful
+              - failed
+              - pending
+            message:
+              type: string
+              description: Additional information about the charge status or next steps.
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 bearer token obtained from the Nomba Authentication API.
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account

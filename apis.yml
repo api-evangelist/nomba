@@ -4,7 +4,20 @@ description: >-
   Nomba is a Nigerian fintech platform that provides payment infrastructure for businesses, offering APIs for payment
   acceptance, transfers, virtual accounts, and cross-border payouts. Their developer platform enables merchants and
   platforms to integrate card payments, bank transfers, USSD, and QR code payments into applications.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/nomba.png
 url: https://raw.githubusercontent.com/api-evangelist/nomba/refs/heads/main/apis.yml
 created: '2026-03-24'
 modified: '2026-05-19'
@@ -19,179 +32,402 @@ tags:
   - Cross-Border Payments
   - Cards
 apis:
-  - aid: nomba:authentication
-    name: Nomba Authentication API
-    description: >-
-      The Nomba Authentication API provides OAuth2-based authentication for accessing all Nomba API endpoints. It
-      supports two authentication methods: Client-Credentials for server-to-server integrations and PKCE (Proof Key for
-      Code Exchange) for client-side applications. Developers obtain HTTP bearer tokens that are used to authorize
-      subsequent API calls across the Nomba platform.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
-    baseURL: https://api.nomba.com
-    tags:
-      - Authentication
-      - OAuth2
-      - Security
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
-      - type: OpenAPI
-        url: openapi/nomba-authentication-openapi.yml
-  - aid: nomba:accounts
-    name: Nomba Accounts API
-    description: >-
-      The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints
-      for retrieving account details, fetching terminals assigned to an account, and managing account-level
-      configurations. This API serves as the foundation for account management operations within the Nomba ecosystem.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
-    baseURL: https://api.nomba.com
-    tags:
-      - Accounts
-      - Financial Services
-      - Terminals
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
-      - type: OpenAPI
-        url: openapi/nomba-accounts-openapi.yml
-  - aid: nomba:virtual-accounts
-    name: Nomba Virtual Accounts API
-    description: >-
-      The Nomba Virtual Accounts API allows developers to create and manage virtual bank accounts for receiving
-      payments. There is no fixed limit to the number of virtual accounts that can be created for customers. The API
-      supports creating, expiring, and managing virtual accounts, enabling businesses to collect payments via bank
-      transfers with unique account numbers assigned to individual customers or transactions.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
-    baseURL: https://api.nomba.com
-    tags:
-      - Virtual Accounts
-      - Payments
-      - Collections
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
-      - type: OpenAPI
-        url: openapi/nomba-virtual-accounts-openapi.yml
-  - aid: nomba:transfers
-    name: Nomba Transfers API
-    description: >-
-      The Nomba Transfers API provides endpoints for initiating and managing fund transfers. Developers can look up bank
-      codes and names, verify account details, and initiate transfers to Nigerian bank accounts. The API supports
-      domestic money transfers and provides the necessary bank metadata for building payment flows within applications.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
-    baseURL: https://api.nomba.com
-    tags:
-      - Transfers
-      - Payments
-      - Banking
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
-      - type: OpenAPI
-        url: openapi/nomba-transfers-openapi.yml
-  - aid: nomba:online-checkout
-    name: Nomba Online Checkout API
-    description: >-
-      The Nomba Online Checkout API enables developers to create checkout orders and process payments through multiple
-      channels. It supports Visa, Verve, and Mastercard payments, as well as USSD, bank transfers, and Nomba QR
-      payments. The API includes tokenized card payment capabilities, allowing merchants to charge returning customers
-      without requiring them to re-enter card details.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
-    baseURL: https://api.nomba.com
-    tags:
-      - Checkout
-      - Payments
-      - E-Commerce
-      - Cards
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
-      - type: OpenAPI
-        url: openapi/nomba-online-checkout-openapi.yml
-  - aid: nomba:charge
-    name: Nomba Charge API
-    description: >-
-      The Nomba Charge API provides direct card charging capabilities for developers building payment solutions. It
-      supports OTP submission for card transactions, retrieval of user saved cards, and tokenized card charging. This
-      API is designed for merchants and platforms that need programmatic control over the card payment flow, including
-      handling 3D Secure authentication steps.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
-    baseURL: https://api.nomba.com
-    tags:
-      - Payments
-      - Cards
-      - Tokenization
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
-      - type: OpenAPI
-        url: openapi/nomba-charge-openapi.yml
-  - aid: nomba:transactions
-    name: Nomba Transactions API
-    description: >-
-      The Nomba Transactions API allows developers to retrieve and manage transaction records. It provides endpoints for
-      fetching account transaction history, querying transaction details, and processing refunds. This API is essential
-      for building reporting dashboards, reconciliation tools, and transaction monitoring systems on top of the Nomba
-      platform.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/products/transactions/fetch-account-transactions
-    baseURL: https://api.nomba.com
-    tags:
-      - Transactions
-      - Reporting
-      - Financial Data
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/products/transactions/fetch-account-transactions
-      - type: OpenAPI
-        url: openapi/nomba-transactions-openapi.yml
-  - aid: nomba:global-payout
-    name: Nomba Global Payout API
-    description: >-
-      The Nomba Global Payout API is a single integration point that enables cross-border payment operators, remittance
-      platforms, and fintechs to collect funds in Nigerian Naira or stablecoins (USDT/USDC) and trigger instant
-      disbursements to the United Kingdom via Faster Payments, Europe via SEPA, Canada via Interac and bank transfer,
-      and the Democratic Republic of Congo via Mobile Money. The API embeds FX sourcing and compliance directly into the
-      technical layer, eliminating the need for operators to manage foreign exchange processes. It solves capital
-      lockups in cross-border trade by handling currency conversion automatically when funds land in a virtual account.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/docs/products/global-payout/introduction
-    baseURL: https://api.nomba.com
-    tags:
-      - Cross-Border Payments
-      - Payouts
-      - Foreign Exchange
-      - Stablecoins
-      - Remittance
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/docs/products/global-payout/introduction
-      - type: OpenAPI
-        url: openapi/nomba-global-payout-openapi.yml
-  - aid: nomba:checkout-sdk
-    name: Nomba Checkout SDK
-    description: >-
-      The Nomba Checkout SDK provides pre-built plugins and client libraries for integrating Nomba payment acceptance
-      into websites and mobile applications. It includes an iOS SDK and e-commerce plugins such as a WooCommerce gateway
-      for WordPress. The SDK supports Visa, Verve, and Mastercard payments along with USSD, bank transfers, and Nomba
-      QR, enabling merchants to quickly add payment capabilities without building a custom checkout flow.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.nomba.com/plugins-and-sdk/overview
-    baseURL: https://api.nomba.com
-    tags:
-      - SDK
-      - Checkout
-      - Plugins
-      - E-Commerce
-    properties:
-      - type: Documentation
-        url: https://developer.nomba.com/plugins-and-sdk/overview
+- aid: nomba:checkout-sdk
+  name: Nomba Checkout SDK
+  description: >-
+    The Nomba Checkout SDK provides pre-built plugins and client libraries for integrating Nomba payment
+    acceptance into websites and mobile applications. It includes an iOS SDK and e-commerce plugins such
+    as a WooCommerce gateway for WordPress. The SDK supports Visa, Verve, and Mastercard payments along
+    with USSD, bank transfers, and Nomba QR, enabling merchants to quickly add payment capabilities without
+    building a custom checkout flow.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.nomba.com/plugins-and-sdk/overview
+  baseURL: https://api.nomba.com
+  tags:
+  - SDK
+  - Checkout
+  - Plugins
+  - E-Commerce
+  properties:
+  - type: Documentation
+    url: https://developer.nomba.com/plugins-and-sdk/overview
+- aid: nomba:nomba-accounts-api
+  name: Nomba Accounts API
+  description: >-
+    Endpoints for managing Nomba business accounts, retrieving account details, balances, and terminal
+    assignments.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-authentication-api
+  name: Nomba Authentication API
+  description: >-
+    Endpoints for obtaining, refreshing, and revoking OAuth2 access tokens used to authenticate requests
+    to all Nomba APIs.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-card-charge-api
+  name: Nomba Card Charge API
+  description: >-
+    Endpoints for submitting card details, processing OTP verification, and managing the card payment
+    flow.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Card Charge
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-card-charge-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-checkout-orders-api
+  name: Nomba Checkout Orders API
+  description: >-
+    Endpoints for creating and managing online checkout orders that support multiple payment channels.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Checkout Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-checkout-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-corridors-api
+  name: Nomba Corridors API
+  description: Endpoints for listing supported payout corridors and their configurations.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Corridors
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-corridors-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-exchange-rates-api
+  name: Nomba Exchange Rates API
+  description: Endpoints for fetching and locking live exchange rates for cross-border payouts.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Exchange Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-exchange-rates-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-order-management-api
+  name: Nomba Order Management API
+  description: Endpoints for retrieving order details and managing checkout transactions.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Order Management
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-order-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-payouts-api
+  name: Nomba Payouts API
+  description: Endpoints for initiating and tracking cross-border payout transactions.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Payouts
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-payouts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-saved-cards-api
+  name: Nomba Saved Cards API
+  description: Endpoints for retrieving and managing customer saved cards.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Saved Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-saved-cards-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-tokenized-cards-api
+  name: Nomba Tokenized Cards API
+  description: Endpoints for managing and charging tokenized card data for returning customers.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Tokenized Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-tokenized-cards-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-transactions-api
+  name: Nomba Transactions API
+  description: >-
+    Endpoints for retrieving transaction history, filtering transactions, and querying transaction details
+    for reconciliation and reporting.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-transfers-api
+  name: Nomba Transfers API
+  description: >-
+    Endpoints for bank lookups, account verification, and initiating domestic fund transfers to bank accounts
+    and between wallets.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-transfers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
+- aid: nomba:nomba-virtual-accounts-api
+  name: Nomba Virtual Accounts API
+  description: >-
+    Endpoints for creating, fetching, filtering, updating, and expiring virtual bank accounts used for
+    payment collection.
+  humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  baseURL: https://api.nomba.com
+  tags:
+  - Virtual Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/nomba-virtual-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names
+  - type: Documentation
+    url: >-
+      https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order
+  - type: Documentation
+    url: https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp
+  - type: Documentation
+    url: https://developer.nomba.com/products/transactions/fetch-account-transactions
+  - type: Documentation
+    url: https://developer.nomba.com/docs/products/global-payout/introduction
 common:
   - type: AgenticAccess
     url: agentic-access/nomba-agentic-access.yml

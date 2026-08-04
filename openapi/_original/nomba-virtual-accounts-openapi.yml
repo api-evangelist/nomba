@@ -1,0 +1,400 @@
+openapi: 3.1.0
+info:
+  title: Nomba Virtual Accounts API
+  description: >-
+    The Nomba Virtual Accounts API allows developers to create and manage
+    virtual bank accounts for receiving payments. There is no fixed limit to
+    the number of virtual accounts that can be created for customers. The API
+    supports creating, fetching, filtering, updating, and expiring virtual
+    accounts, enabling businesses to collect payments via bank transfers with
+    unique account numbers assigned to individual customers or transactions.
+  version: '1.0.0'
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+externalDocs:
+  description: Nomba Virtual Accounts Documentation
+  url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account
+servers:
+  - url: https://api.nomba.com
+    description: Production Server
+  - url: https://sandbox.nomba.com
+    description: Sandbox Server
+tags:
+  - name: Virtual Accounts
+    description: >-
+      Endpoints for creating, fetching, filtering, updating, and expiring
+      virtual bank accounts used for payment collection.
+security:
+  - bearerAuth: []
+paths:
+  /v1/accounts/virtual:
+    post:
+      operationId: createVirtualAccount
+      summary: Create a virtual account
+      description: >-
+        Creates a new virtual bank account that can receive payments via bank
+        transfers. Each virtual account is assigned a unique account number.
+        There is no fixed limit on the number of virtual accounts that can be
+        created for customers.
+      tags:
+        - Virtual Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - accountName
+              properties:
+                accountName:
+                  type: string
+                  description: >-
+                    The name to assign to the virtual account, typically the
+                    customer name or transaction reference.
+                  example: John Doe
+                accountRef:
+                  type: string
+                  description: >-
+                    A unique reference for the virtual account. If not provided,
+                    one will be generated automatically.
+                expiryDate:
+                  type: string
+                  format: date-time
+                  description: >-
+                    Optional expiry date for the virtual account. After this
+                    date, the account will no longer accept payments.
+      responses:
+        '200':
+          description: Virtual account created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccountResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/virtual/filter:
+    post:
+      operationId: filterVirtualAccounts
+      summary: Filter virtual accounts
+      description: >-
+        Filters and retrieves virtual accounts based on specified criteria.
+        Supports pagination and filtering by account status, name, or
+        reference.
+      tags:
+        - Virtual Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountName:
+                  type: string
+                  description: >-
+                    Filter by virtual account name.
+                accountRef:
+                  type: string
+                  description: >-
+                    Filter by virtual account reference.
+                status:
+                  type: string
+                  description: >-
+                    Filter by virtual account status.
+                  enum:
+                    - active
+                    - expired
+                page:
+                  type: integer
+                  description: >-
+                    Page number for pagination.
+                  minimum: 0
+                pageSize:
+                  type: integer
+                  description: >-
+                    Number of results per page.
+                  minimum: 1
+                  maximum: 100
+      responses:
+        '200':
+          description: Virtual accounts retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccountListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/virtual/{accountRef}:
+    get:
+      operationId: fetchVirtualAccount
+      summary: Fetch a virtual account
+      description: >-
+        Retrieves the details of a specific virtual account by its unique
+        account reference identifier.
+      tags:
+        - Virtual Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountRef'
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Virtual account details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccountResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Virtual account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateVirtualAccount
+      summary: Update a virtual account
+      description: >-
+        Updates the details of an existing virtual account, such as the
+        account name or expiry date.
+      tags:
+        - Virtual Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountRef'
+        - $ref: '#/components/parameters/accountId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accountName:
+                  type: string
+                  description: >-
+                    The updated name for the virtual account.
+                expiryDate:
+                  type: string
+                  format: date-time
+                  description: >-
+                    Updated expiry date for the virtual account.
+      responses:
+        '200':
+          description: Virtual account updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VirtualAccountResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Virtual account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/virtual/{identifier}:
+    delete:
+      operationId: expireVirtualAccount
+      summary: Expire a virtual account
+      description: >-
+        Expires (deactivates) a virtual account so that it can no longer
+        receive payments. This action is irreversible.
+      tags:
+        - Virtual Accounts
+      parameters:
+        - name: identifier
+          in: path
+          required: true
+          description: >-
+            The unique identifier of the virtual account to expire.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Virtual account expired successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Virtual account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth2 bearer token obtained from the Nomba Authentication API.
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: >-
+        The unique identifier of the parent business account.
+      schema:
+        type: string
+    accountRef:
+      name: accountRef
+      in: path
+      required: true
+      description: >-
+        The unique reference identifier of the virtual account.
+      schema:
+        type: string
+  schemas:
+    VirtualAccountResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+        data:
+          $ref: '#/components/schemas/VirtualAccount'
+    VirtualAccountListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: >-
+                List of virtual accounts matching the filter criteria.
+              items:
+                $ref: '#/components/schemas/VirtualAccount'
+            cursor:
+              type: string
+              description: >-
+                Pagination cursor for retrieving the next page of results.
+    VirtualAccount:
+      type: object
+      properties:
+        accountRef:
+          type: string
+          description: >-
+            The unique reference identifier for the virtual account.
+        accountName:
+          type: string
+          description: >-
+            The name associated with the virtual account.
+        accountNumber:
+          type: string
+          description: >-
+            The bank account number assigned to the virtual account.
+        bankName:
+          type: string
+          description: >-
+            The name of the bank providing the virtual account.
+        status:
+          type: string
+          description: >-
+            The current status of the virtual account.
+          enum:
+            - active
+            - expired
+        expiryDate:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the virtual account expires.
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the virtual account was created.
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Error status code.
+        description:
+          type: string
+          description: >-
+            Human-readable description of the error.
+        errors:
+          type: array
+          description: >-
+            List of specific error details.
+          items:
+            type: string

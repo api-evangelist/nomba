@@ -1,0 +1,269 @@
+openapi: 3.1.0
+info:
+  title: Nomba Accounts API
+  description: >-
+    The Nomba Accounts API enables developers to manage business accounts on
+    the Nomba platform. It provides endpoints for retrieving account details,
+    fetching the parent account balance, and listing terminals assigned to an
+    account. This API serves as the foundation for account management
+    operations within the Nomba ecosystem.
+  version: '1.0.0'
+  contact:
+    name: Nomba Developer Support
+    url: https://developer.nomba.com
+  termsOfService: https://nomba.com/terms
+externalDocs:
+  description: Nomba Accounts API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+servers:
+  - url: https://api.nomba.com
+    description: Production Server
+  - url: https://sandbox.nomba.com
+    description: Sandbox Server
+tags:
+  - name: Accounts
+    description: >-
+      Endpoints for managing Nomba business accounts, retrieving account
+      details, balances, and terminal assignments.
+security:
+  - bearerAuth: []
+paths:
+  /v1/accounts:
+    get:
+      operationId: fetchParentAccountDetails
+      summary: Fetch parent account details
+      description: >-
+        Retrieves the details of the authenticated parent business account,
+        including account information and configuration.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Account details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailsResponse'
+        '401':
+          description: Unauthorized - invalid or missing access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/balance:
+    get:
+      operationId: fetchParentAccountBalance
+      summary: Fetch parent account balance
+      description: >-
+        Retrieves the current balance of the authenticated parent business
+        account. Returns the available and ledger balances for the account.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Account balance retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountBalanceResponse'
+        '401':
+          description: Unauthorized - invalid or missing access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/accounts/{accountId}/terminals:
+    get:
+      operationId: fetchTerminalsAssignedToAccount
+      summary: Fetch terminals assigned to an account
+      description: >-
+        Retrieves the list of POS terminals that are currently assigned to
+        the specified account. Each terminal includes its identifier and
+        configuration details.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/accountIdPath'
+        - $ref: '#/components/parameters/accountId'
+      responses:
+        '200':
+          description: Terminals list retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminalsResponse'
+        '401':
+          description: Unauthorized - invalid or missing access token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth2 bearer token obtained from the Nomba Authentication API.
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: >-
+        The unique identifier of the parent business account.
+      schema:
+        type: string
+    accountIdPath:
+      name: accountId
+      in: path
+      required: true
+      description: >-
+        The unique identifier of the account to fetch terminals for.
+      schema:
+        type: string
+  schemas:
+    AccountDetailsResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+        data:
+          $ref: '#/components/schemas/Account'
+    AccountBalanceResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            accountId:
+              type: string
+              description: >-
+                The unique identifier of the account.
+            balance:
+              type: number
+              format: double
+              description: >-
+                The current available balance of the account.
+            currency:
+              type: string
+              description: >-
+                The currency of the balance.
+              example: NGN
+    TerminalsResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Response status code.
+          example: '00'
+        description:
+          type: string
+          description: >-
+            Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: >-
+                List of terminals assigned to the account.
+              items:
+                $ref: '#/components/schemas/Terminal'
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: >-
+            The unique identifier for the account.
+        accountName:
+          type: string
+          description: >-
+            The name associated with the account.
+        accountType:
+          type: string
+          description: >-
+            The type of the account.
+        status:
+          type: string
+          description: >-
+            The current status of the account.
+        currency:
+          type: string
+          description: >-
+            The currency associated with the account.
+          example: NGN
+        createdAt:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the account was created.
+    Terminal:
+      type: object
+      properties:
+        terminalId:
+          type: string
+          description: >-
+            The unique identifier for the terminal.
+        serialNumber:
+          type: string
+          description: >-
+            The serial number of the POS terminal.
+        status:
+          type: string
+          description: >-
+            The current status of the terminal.
+        assignedAt:
+          type: string
+          format: date-time
+          description: >-
+            The date and time the terminal was assigned to the account.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: >-
+            Error status code.
+        description:
+          type: string
+          description: >-
+            Human-readable description of the error.
+        errors:
+          type: array
+          description: >-
+            List of specific error details.
+          items:
+            type: string

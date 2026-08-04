@@ -1,0 +1,38 @@
+{
+  "provider": "nomba",
+  "sources": [
+    "nomba-accounts-api-openapi.yml",
+    "nomba-authentication-api-openapi.yml",
+    "nomba-card-charge-api-openapi.yml",
+    "nomba-checkout-orders-api-openapi.yml",
+    "nomba-corridors-api-openapi.yml",
+    "nomba-exchange-rates-api-openapi.yml",
+    "nomba-order-management-api-openapi.yml",
+    "nomba-payouts-api-openapi.yml",
+    "nomba-saved-cards-api-openapi.yml",
+    "nomba-tokenized-cards-api-openapi.yml",
+    "nomba-transactions-api-openapi.yml",
+    "nomba-transfers-api-openapi.yml",
+    "nomba-virtual-accounts-api-openapi.yml"
+  ],
+  "outputs": [
+    "nomba-accounts-api-openapi.yml",
+    "nomba-authentication-api-openapi.yml",
+    "nomba-card-charge-api-openapi.yml",
+    "nomba-checkout-orders-api-openapi.yml",
+    "nomba-corridors-api-openapi.yml",
+    "nomba-exchange-rates-api-openapi.yml",
+    "nomba-order-management-api-openapi.yml",
+    "nomba-payouts-api-openapi.yml",
+    "nomba-saved-cards-api-openapi.yml",
+    "nomba-tokenized-cards-api-openapi.yml",
+    "nomba-transactions-api-openapi.yml",
+    "nomba-transfers-api-openapi.yml",
+    "nomba-virtual-accounts-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Corridors API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Corridors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List supported payout corridors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/global-payout/corridors",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of supported cross-border payout corridors along with their configurations, limits, settlement times, and available payment methods."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

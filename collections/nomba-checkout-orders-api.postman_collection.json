@@ -1,0 +1,511 @@
+{
+  "item": [
+    {
+      "id": "be7ad400-5d80-49b4-928a-37966c94a6f3",
+      "name": "Checkout Orders",
+      "description": {
+        "content": "Endpoints for creating and managing online checkout orders that support multiple payment channels.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c14ba020-4b8f-4acb-8d13-4255ab60b212",
+          "name": "Create an online checkout order",
+          "request": {
+            "name": "Create an online checkout order",
+            "description": {
+              "content": "Creates a new checkout order and returns a checkout link that can be loaded in a browser to allow the customer to initiate payment. The checkout supports Visa, Verve, Mastercard, USSD, bank transfers, and Nomba QR payments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "checkout",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<string>\",\n    \"orderReference\": \"<string>\",\n    \"customerEmail\": \"<email>\",\n    \"callbackUrl\": \"<uri>\",\n    \"tokenizeCard\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77be0980-2a0e-4e86-b945-354041fdc2a4",
+              "name": "Checkout order created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkout",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 10000,\n    \"currency\": \"NGN\",\n    \"orderReference\": \"order_ref_12345\",\n    \"customerEmail\": \"customer@example.com\",\n    \"callbackUrl\": \"https://merchant.com/callback\",\n    \"tokenizeCard\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\",\n  \"data\": {\n    \"orderReference\": \"string\",\n    \"checkoutLink\": \"http://aBs.gmxi4plTCsTQVHFaBSgQEx98RrafZJZYITA\",\n    \"amount\": 1455.445487587409,\n    \"currency\": \"string\",\n    \"status\": \"string\",\n    \"createdAt\": \"1946-12-28T10:08:08.568Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d190525-c11e-40f6-bf20-f7f718e0aa08",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkout",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 10000,\n    \"currency\": \"NGN\",\n    \"orderReference\": \"order_ref_12345\",\n    \"customerEmail\": \"customer@example.com\",\n    \"callbackUrl\": \"https://merchant.com/callback\",\n    \"tokenizeCard\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa5e70e4-6e7c-41b6-84c1-e478e3bcae9c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkout",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order\": {\n    \"amount\": 10000,\n    \"currency\": \"NGN\",\n    \"orderReference\": \"order_ref_12345\",\n    \"customerEmail\": \"customer@example.com\",\n    \"callbackUrl\": \"https://merchant.com/callback\",\n    \"tokenizeCard\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6be98825-22ad-4f56-a164-fe60e396b451",
+          "name": "Cancel a checkout transaction",
+          "request": {
+            "name": "Cancel a checkout transaction",
+            "description": {
+              "content": "Cancels an incomplete checkout transaction. This can be used when a customer abandons the payment flow or when the merchant needs to void an unpaid order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "checkout",
+                "transaction",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "01caf07e-dc4d-4d85-b1e0-b0794c25e4ec",
+              "name": "Transaction cancelled successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkout",
+                    "transaction",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderReference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "525c198b-201e-4c50-ba6f-9300cef59a6d",
+              "name": "Invalid request or transaction cannot be cancelled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkout",
+                    "transaction",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderReference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e61f7dc4-4596-4a11-b6dd-1cbeaee03c57",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkout",
+                    "transaction",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderReference\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nomba.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7da7000a-afa0-4c71-aa21-a7f43d66263a",
+    "name": "Nomba Accounts Checkout Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.\n\nContact Support:\n Name: Nomba Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

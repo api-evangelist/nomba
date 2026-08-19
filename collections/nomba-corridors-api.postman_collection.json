@@ -1,0 +1,186 @@
+{
+  "item": [
+    {
+      "id": "27853c21-33c8-4079-b86c-0ec8db9ae24a",
+      "name": "Corridors",
+      "description": {
+        "content": "Endpoints for listing supported payout corridors and their configurations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0aa62c20-ba1a-4a67-bb3c-a982c1d48d0e",
+          "name": "List supported payout corridors",
+          "request": {
+            "name": "List supported payout corridors",
+            "description": {
+              "content": "Retrieves the list of supported cross-border payout corridors along with their configurations, limits, settlement times, and available payment methods.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "global-payout",
+                "corridors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b30e8261-2a59-4cb5-817f-f5f53a81b47c",
+              "name": "Corridors retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "corridors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\",\n  \"data\": {\n    \"results\": [\n      {\n        \"country\": \"string\",\n        \"countryCode\": \"string\",\n        \"currency\": \"string\",\n        \"paymentMethods\": [\n          \"sepa\",\n          \"mobile_money\"\n        ],\n        \"maxAmount\": 1642.449340468619,\n        \"settlementTime\": \"1-3 hours\"\n      },\n      {\n        \"country\": \"string\",\n        \"countryCode\": \"string\",\n        \"currency\": \"string\",\n        \"paymentMethods\": [\n          \"bank_transfer\",\n          \"interac\"\n        ],\n        \"maxAmount\": 5122.080556778114,\n        \"settlementTime\": \"1-3 hours\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed26cdff-6273-46ef-a3d8-ae3d8713295e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "corridors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nomba.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4be0ec89-2d0a-444d-8ea1-54d4171c027e",
+    "name": "Nomba Accounts Corridors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.\n\nContact Support:\n Name: Nomba Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

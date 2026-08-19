@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch parent account details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/accounts",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the details of the authenticated parent business account, including account information and configuration."
+        },
+        {
+          "info": {
+            "name": "Fetch parent account balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/accounts/balance",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the current balance of the authenticated parent business account. Returns the available and ledger balances for the account."
+        },
+        {
+          "info": {
+            "name": "Fetch terminals assigned to an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/accounts/:accountId/terminals",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the account to fetch terminals for."
+              }
+            ]
+          },
+          "docs": "Retrieves the list of POS terminals that are currently assigned to the specified account. Each terminal includes its identifier and configuration details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

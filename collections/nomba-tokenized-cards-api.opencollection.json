@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Tokenized Cards API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokenized Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List tokenized cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/checkout/tokenized-card-data",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves a list of tokenized card data stored for the merchant. Tokenized cards enable merchants to charge returning customers without requiring them to re-enter card details."
+        },
+        {
+          "info": {
+            "name": "Charge a customer using tokenized card data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/tokenized-card-payment",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Processes a payment using a previously tokenized card. This allows merchants to charge returning customers using unique tokens instead of requiring sensitive card details to be re-entered."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

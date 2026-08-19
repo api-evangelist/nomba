@@ -1,0 +1,177 @@
+# Nomba Developers
+
+## Docs
+
+- [Welcome to Nomba](https://developer.nomba.com/docs/introduction/welcome-to-nomba.md): We are excited to have you here.
+- [Obtain API Keys](https://developer.nomba.com/docs/getting-started/get-api-keys.md): We are excited to have you here.
+- [Acceptable KYB Documents](https://developer.nomba.com/docs/getting-started/acceptable-documents.md): Learn the documents needed for KYB verification
+- [Authenticate](https://developer.nomba.com/docs/getting-started/authentication.md): Learn how to ensure secure access to Nomba API Resources.
+- [Overview](https://developer.nomba.com/docs/products/accept-payment/overview.md): Get started with Nomba Products. Set up payments, recurring billing, direct debit, virtual accounts, and more.
+- [Virtual accounts](https://developer.nomba.com/docs/products/accept-payment/virtual-account.md): Learn about creating virtual accounts
+- [Checkout Overview](https://developer.nomba.com/docs/products/accept-payment/checkout-overview.md): Accept payments from your customers using Nomba Checkout
+- [Create a checkout order](https://developer.nomba.com/docs/products/accept-payment/create-checkout-order.md): Learn how to create a checkout order to accept payments
+- [Verify Transactions](https://developer.nomba.com/docs/products/accept-payment/verify-transactions.md): Learn how to verify checkout transactions using the Nomba API
+- [Refund a Checkout Order](https://developer.nomba.com/docs/products/accept-payment/refund-checkout-order.md): Learn how to refund checkout transactions using the Nomba API
+- [Cancel a Checkout Order](https://developer.nomba.com/docs/products/accept-payment/cancel-checkout-order.md): Learn how to cancel pending checkout orders using the Nomba API
+- [Recurring Payments](https://developer.nomba.com/docs/products/accept-payment/recurring-payments.md): Learn how to charge tokenized cards with the Nomba API
+- [Initialize Charge](https://developer.nomba.com/docs/products/accept-payment/server-to-server.md): Learn how to build a customized checkout with the charge API.
+- [Payment Methods](https://developer.nomba.com/docs/products/accept-payment/payment-methods.md): Explore all supported payment methods in Nomba Checkout
+- [Sandbox Testing](https://developer.nomba.com/docs/products/accept-payment/sandbox-testing.md): Test your Nomba Checkout integration end-to-end in the sandbox environment
+- [Direct Debit](https://developer.nomba.com/docs/products/accept-payment/direct-debit.md): Understand everything about direct debit in Nomba
+- [Overview](https://developer.nomba.com/docs/products/global-collections/introduction.md): Learn how to collect funds from customers across supported mobile money networks with the Nomba DRC Collection API
+- [Initiate Mobile Money Inflow](https://developer.nomba.com/docs/products/global-collections/initiate-mobile-money-inflow.md): Trigger a mobile money collection request from a customer
+- [Fetch DRC Inflow Providers](https://developer.nomba.com/docs/products/global-collections/fetch-drc-inflow-providers.md): List the mobile money providers available for DRC mobile money collections
+- [Fetch Transaction](https://developer.nomba.com/docs/products/global-collections/fetch-mobile-money-transaction.md): Retrieve the status of an initiated mobile money collection
+- [Overview](https://developer.nomba.com/docs/products/transfers/introduction.md): Learn how to process bank transfers with the Nomba API
+- [Bank account lookup](https://developer.nomba.com/docs/products/transfers/bank-account-lookup.md): Verify a recipient bank account before initiating a transfer
+- [Fetch bank codes](https://developer.nomba.com/docs/products/transfers/fetch-bank-codes-and-names.md): Retrieve bank codes and names for all supported Nigerian banks
+- [Transfer to banks](https://developer.nomba.com/docs/products/transfers/transfer-to-banks.md): Learn how to perform bank transfers using the Nomba API
+- [Transfer between accounts](https://developer.nomba.com/docs/products/transfers/transfer-between-accounts.md): Learn how to use the Nomba API to move money between accounts
+- [Overview](https://developer.nomba.com/docs/products/global-payout/introduction.md): Learn how to process cross-border fund disbursements with the Nomba Global Payout API
+- [Supported Countries](https://developer.nomba.com/docs/products/global-payout/supported-countries.md): View all destination countries, payment methods, limits, and delivery timelines supported by the Nomba Global Payout API
+- [Fetch Payment Methods](https://developer.nomba.com/docs/products/global-payout/payment-methods.md): Retrieve supported payment methods and method-specific requirements
+- [Institution Providers](https://developer.nomba.com/docs/products/global-payout/mobile-money-providers.md): Retrieve available banks and mobile money providers for Global Payout transfers
+- [Authorize Transfer](https://developer.nomba.com/docs/products/global-payout/authorize-transfer.md): Initiate and authorize a cross-border transfer using the Nomba Global Payout API
+- [Convert Money](https://developer.nomba.com/docs/products/global-payout/convert-money.md): Calculate a currency conversion before initiating a transfer
+- [Fetch Exchange Rates](https://developer.nomba.com/docs/products/global-payout/fetch-exchange-rates.md): Retrieve the latest exchange rates for a currency pair before initiating a transfer
+- [Fetch Transaction](https://developer.nomba.com/docs/products/global-payout/fetch-transaction.md): Track the status of a Global Payout transaction using its transaction ID
+- [Authorize Exchange](https://developer.nomba.com/docs/products/global-payout/authorize-exchange.md): Transfer funds between your own accounts in different currencies
+- [Assigning terminals](https://developer.nomba.com/docs/products/terminals/assigning-terminals.md): Learn how to assign terminals to accounts
+- [Unassigning terminals](https://developer.nomba.com/docs/products/terminals/unassigning-terminals.md): Learn how to unassign terminals from accounts
+- [Push Payment to Terminal](https://developer.nomba.com/docs/products/terminals/push-payment-request.md): How to initiate and process payments using the Nomba payment terminal
+- [Introduction](https://developer.nomba.com/docs/products/terminals/custom-apps/introduction.md): Build custom apps on Nomba terminals
+- [Introduction](https://developer.nomba.com/docs/products/terminals/custom-apps/trigger-payment/introduction.md): Learn how to receive either card or bank transfer payments from your customers
+- [Trigger card payments](https://developer.nomba.com/docs/products/terminals/custom-apps/trigger-payment/trigger-card-payment.md): Learn how to receive card payments from your customers
+- [Trigger bank transfer payments](https://developer.nomba.com/docs/products/terminals/custom-apps/trigger-payment/trigger-bank-transfer-payments.md): Learn how to receive bank transfer payments from your customers
+- [Retrieve device info](https://developer.nomba.com/docs/products/terminals/custom-apps/retrieve-device-info.md): Learn how to retrieve terminal specific details from your custom application
+- [Trigger receipt printing](https://developer.nomba.com/docs/products/terminals/custom-apps/trigger-receipt-printing.md): Learn how to trigger receipt printing from your custom application
+- [Introduction](https://developer.nomba.com/docs/products/terminals/terminal-actions/introduction.md): Learn how to create middlewares for Terminals
+- [Balance Check](https://developer.nomba.com/docs/products/terminals/terminal-actions/balance-check.md): Intercept balance check requests to apply validation or custom logic
+- [Payout Transaction](https://developer.nomba.com/docs/products/terminals/terminal-actions/payout-transaction.md): Customize or approve payout transactions before they are processed
+- [Overview](https://developer.nomba.com/docs/products/transactions/introduction.md): Learn how to fetch all types of transactions
+- [Fetch Transactions](https://developer.nomba.com/docs/products/transactions/fetch-transactions.md): Learn how to fetch transactions associated with an account.
+- [Fetch Data Plans](https://developer.nomba.com/docs/products/airtime-and-data/fetch-data-plans.md): Get a list of available data bundles that can be purchased based on the network or telco
+- [Buy Data Bundle](https://developer.nomba.com/docs/products/airtime-and-data/buy-data-bundle.md): How to Buy Data Bundle using this API
+- [Vend Airtime](https://developer.nomba.com/docs/products/airtime-and-data/vend-airtime.md): How to vend Airtime using this API
+- [Fetch Cable TV Plans](https://developer.nomba.com/docs/products/bills/fetch-cable-tv-plans.md): Get a list of the available plans from a provider.
+- [Subscribe to Cable TV](https://developer.nomba.com/docs/products/bills/subscribe-to-cable-tv.md): This describes the process of subscribing to a Cable TV network
+- [Get customer information from a cable tv provider ](https://developer.nomba.com/docs/products/bills/name-lookup-for-cabletv.md): Describes how to get the information of a cable tv customer
+- [Get customer information for an electricity payment ](https://developer.nomba.com/docs/products/bills/name-lookup-for-electricity.md): Describes how to get the information of an electricity vendor's customer
+- [Fetch Electricity Providers (Discos)](https://developer.nomba.com/docs/products/bills/fetch-electricity-providers.md): Get a list of the available electricity providers
+- [Pay for Electricity](https://developer.nomba.com/docs/products/bills/pay-for-electricity.md): This describes the process of paying for electricity
+- [Fetch Betting Providers](https://developer.nomba.com/docs/products/bills/fetch-betting-providers.md): Get a list of the available plans from a provider.
+- [Get customer information for a betting payment ](https://developer.nomba.com/docs/products/bills/name-lookup-for-betting.md): Describes how to get the information of a betting vendor's customer
+- [Pay for Betting](https://developer.nomba.com/docs/products/bills/pay-for-betting.md): This describes the process of paying for betting
+- [Pagination](https://developer.nomba.com/docs/api-basics/pagination.md): Learn how pagination is implemented in the Nomba API
+- [Ratelimit](https://developer.nomba.com/docs/api-basics/rate_limit.md): Learn about Nomba's fixed window rate limit strategy
+- [Environment](https://developer.nomba.com/docs/api-basics/environment.md): Learn about the production and sandbox environment
+- [Testing](https://developer.nomba.com/docs/api-basics/testing.md): Learn about the test cards we use for testing purposes
+- [Error Codes](https://developer.nomba.com/docs/api-basics/error-codes.md): Understand Nomba API error codes and how to handle them
+- [Webhooks](https://developer.nomba.com/docs/api-basics/webhook.md): Learn how to interact with Nomba webhooks
+- [Debug webhooks](https://developer.nomba.com/docs/api-basics/troubleshoot-webhooks.md): Learn how to re-push or debug a webhook
+- [Definitions](https://developer.nomba.com/docs/api-basics/definitions.md): Learn about some terminologies used in this documentation
+- [Introduction](https://developer.nomba.com/docs/guides/introduction.md): Start effortlessly with our user-friendly guides
+- [Try the API](https://developer.nomba.com/docs/guides/try-the-api.md): Test Nomba APIs instantly — no account or credentials required
+- [Accept online payments](https://developer.nomba.com/docs/guides/accept-online-payments.md): End-to-end guide for integrating Nomba Checkout to accept online payments.
+- [Accept Payments with Payment Links](https://developer.nomba.com/docs/guides/accept-payment-with-payment-links.md): Effortlessly accept payments with a unique payment URL.
+- [Authentication best practises](https://developer.nomba.com/docs/guides/authentication-best-practises.md): Strategies for optimizing the authentication workflow with the Nomba API.
+- [Setting up webhooks](https://developer.nomba.com/docs/guides/setting-up-webhooks.md): Guidance on how to configure your webhooks on your Nomba dashboard.
+- [Shopify nomba integration](https://developer.nomba.com/docs/guides/shopify-nomba-integration.md)
+- [Nomba woocommerce integration](https://developer.nomba.com/docs/guides/nomba-woocommerce-integration.md)
+- [Managing accounts with Nomba](https://developer.nomba.com/docs/guides/managing-accounts-with-nomba.md): Learn everything about accounts with Nomba.
+- [Introduction](https://developer.nomba.com/nomba-api-reference/introduction.md): Interact with all our available API endpoints
+- [Get API Keys](https://developer.nomba.com/nomba-api-reference/get-api-keys.md): We are excited to have you here.
+- [Obtain access token](https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token.md): You can use this endpoint to authenticate with Nomba.
+- [Refresh an expired token](https://developer.nomba.com/nomba-api-reference/authenticate/refresh-an-expired-token.md): You can use this endpoint to refresh an expired `access_token`.
+- [Revoke an access_token](https://developer.nomba.com/nomba-api-reference/authenticate/revoke-an-access_token.md): You can use this endpoint to revoke an `access_token`.
+- [Fetch parent account details](https://developer.nomba.com/nomba-api-reference/accounts/fetch-parent-account-details.md): You can use this endpoint to get details of the parent account.
+- [Fetch sub account details](https://developer.nomba.com/nomba-api-reference/accounts/fetch-sub-account-details.md): You can use this endpoint to get details of a sub account.
+- [Fetch parent account balance](https://developer.nomba.com/nomba-api-reference/accounts/fetch-parent-account-balance.md): You can use this endpoint to get the balance of the parent account.
+- [Fetch sub account balance](https://developer.nomba.com/nomba-api-reference/accounts/fetch-sub-account-balance.md): You can use this endpoint to get the balance of a sub account
+- [Fetch terminals assigned to the parent account](https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-the-parent-account.md): You can use this endpoint to fetch terminals linked to the parent account.
+- [Fetch terminals assigned to a sub account](https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-a-sub-account.md): You can use this endpoint to fetch terminals linked to a sub account.
+- [Create virtual account](https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account.md): You can use this endpoint to create a virtual account to receive payments.
+- [Create virtual account for a sub account](https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account-for-sub-account.md): You can use this endpoint to create a virtual account to receive payments for a sub account. Funds sent to the virtual account is collected in the sub account specified
+- [Filter virtual accounts](https://developer.nomba.com/nomba-api-reference/virtual-accounts/filter-virtual-accounts.md): You can use this endpoint to filter your virtual accounts.
+- [Fetch a virtual account](https://developer.nomba.com/nomba-api-reference/virtual-accounts/fetch-a-virtual-account.md): You can use this endpoint to fetch a virtual account.
+- [Update a virtual account](https://developer.nomba.com/nomba-api-reference/virtual-accounts/update-a-virtual-account.md): You can use this endpoint to update a virtual account.
+- [Expire a virtual account](https://developer.nomba.com/nomba-api-reference/virtual-accounts/expire-a-virtual-account.md): You can use this endpoint to expire a virtual account.
+- [Create an online checkout order](https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order.md): You can use this endpoint to create an online checkout order. Load the URL returned in 'checkoutLink' property in a browser to allow your customer initiate payment.
+- [Charge a customer using tokenized card data](https://developer.nomba.com/nomba-api-reference/online-checkout/charge-a-customer-using-tokenized-card-data.md): You can use this endpoint to charge a customer's card using the tokenized card details.
+- [List tokenized cards](https://developer.nomba.com/nomba-api-reference/online-checkout/list-tokenized-cards.md): Fetch list of merchant's tokenized cards
+- [Update tokenized card data](https://developer.nomba.com/nomba-api-reference/online-checkout/update-tokenized-card-data.md): Update a tokenized card details
+- [Delete tokenized card data](https://developer.nomba.com/nomba-api-reference/online-checkout/delete-tokenized-card-data.md): Delete a tokenized card details
+- [Fetch checkout transaction](https://developer.nomba.com/nomba-api-reference/online-checkout/fetch-checkout-transaction.md): Fetch checkout transaction
+- [Refund checkout transaction](https://developer.nomba.com/nomba-api-reference/online-checkout/refund-checkout-transaction.md): You can use this endpoint to refund a checkout transaction.
+- [Cancel Checkout Order](https://developer.nomba.com/nomba-api-reference/online-checkout/cancel-checkout-order.md): Use this endpoint to cancel an incomplete or pending checkout order.
+- [Get Order details based on the generated Order reference](https://developer.nomba.com/nomba-api-reference/charge/get-order-details-based-on-the-generated-order-reference.md): Use this endpoint to fetch a single checkout order, using the order reference that was returned when the Order was created
+- [Submit customer card details](https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-details.md): Use this endpoint to submit the customers card details
+- [Submit customer card OTP](https://developer.nomba.com/nomba-api-reference/charge/submit-customer-card-otp.md): Use this endpoint to submit the payment OTP sent to the customer's phones from the payment gateway
+- [Resend OTP to customer's phone](https://developer.nomba.com/nomba-api-reference/charge/resend-otp-to-customers-phone.md): Use this endpoint to resend the payment OTP to the customer's phone
+- [Fetch checkout transaction details](https://developer.nomba.com/nomba-api-reference/charge/fetch-checkout-transaction-details.md): Use this endpoint to fetch the checkout transaction details and get the status of the transaction after OTP is submitted or transfer is made
+- [Fetch checkout Flash account number for transfer payment](https://developer.nomba.com/nomba-api-reference/charge/fetch-checkout-flash-account-number-for-transfer-payment.md): Use this endpoint to Get a flash account number which the customer can use to make a transfer payment.
+- [Request OTP before saving a user's card](https://developer.nomba.com/nomba-api-reference/charge/request-user-otp.md): Use this endpoint to request an OTP to be sent to be sent to the users phone number to authenticate the user before saving the card. This endpoint is called after payment is successful, and the user requested to save their card for later.
+- [Request OTP to validate a user before fetching saved cards](https://developer.nomba.com/nomba-api-reference/charge/request-user-otp-1.md): Use this endpoint to request an OTP to be sent to a user's phone number to authenticate before retrieving the saved cards mapped to the user's email. Use this endpoint when the Order details endpoint indicates the user already has saved cards.
+- [Submit user OTP](https://developer.nomba.com/nomba-api-reference/charge/submit-user-otp.md): Use this endpoint to submit the user OTP send to the user's mobile number. This will result in the user's card being saved for later use.
+- [Get user saved cards](https://developer.nomba.com/nomba-api-reference/charge/get-user-saved-cards.md): Use this endpoint to Get a user's saved cards. Requires user OTP send to the user after calling /checkout/user-card/saved-card/auth
+- [Cancel Checkout transaction](https://developer.nomba.com/nomba-api-reference/charge/cancel-checkout-transaction.md): Use this endpoint to Cancel an incomplete checkout transaction
+- [Create a Direct Debit Mandate](https://developer.nomba.com/nomba-api-reference/direct-debits/create-direct-debit.md): Creates a new direct debit mandate for a customer.
+- [Get Mandate Status](https://developer.nomba.com/nomba-api-reference/direct-debits/check-direct-debit-status.md): Fetches the status of a specific mandate by mandateId.
+- [Debit a mandate](https://developer.nomba.com/nomba-api-reference/direct-debits/debit-mandate.md): Debits a customer's account using an active mandate.
+- [Update mandate status](https://developer.nomba.com/nomba-api-reference/direct-debits/update-direct-debit-status.md): Updates the status of a direct debit mandate (e.g., SUSPEND, ACTIVE).
+- [Get mandates by filters](https://developer.nomba.com/nomba-api-reference/direct-debits/list-direct-debit-mandates.md)
+- [Fetch bank codes and names](https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names.md): Retrieve all supported Nigerian banks with their codes and names. Cache this response — bank codes rarely change. Use the `code` field as `bankCode` in transfer and account lookup requests.
+- [Perform bank account lookup](https://developer.nomba.com/nomba-api-reference/transfers/perform-bank-account-lookup.md): Verify a recipient bank account number before initiating a transfer. Returns the account holder's name. Always call this before a bank transfer so users can confirm the recipient.
+- [Perform bank account transfer from the parent account](https://developer.nomba.com/nomba-api-reference/transfers/perform-bank-account-transfer-from-the-parent-account.md): Initiate a bank transfer from the parent account to an external Nigerian bank. Returns immediately with a `data.status` of `SUCCESS` or `PENDING_BILLING`. Listen for webhook notifications for final status, or poll using the returned `data.id`. On failure, the account is auto-refunded and status beco…
+- [Perform bank account transfer from the sub account](https://developer.nomba.com/nomba-api-reference/transfers/perform-bank-account-transfer-from-the-sub-account.md): Initiate a bank transfer from a specific sub-account. Useful when managing multiple balances under your main account. Sub-account transfers must be enabled by Nomba before use. Sub-accounts can only be created from the Nomba dashboard.
+- [Perform wallet transfer from the parent account](https://developer.nomba.com/nomba-api-reference/transfers/perform-wallet-transfer-from-the-parent-account.md): Transfer funds between Nomba accounts (P2P). Bypasses external processors for near-instant settlement. Returns synchronously with `data.status: SUCCESS`. Note: wallet transfers do not return a `sessionId` — use the parent account requery endpoint for status checks.
+- [Perform wallet transfer from a sub account](https://developer.nomba.com/nomba-api-reference/transfers/perform-wallet-transfer-from-a-sub-account.md): Transfer funds from a specific sub-account to another Nomba account (P2P). Near-instant settlement with no external processor. Sub-account transfers must be enabled by Nomba before use.
+- [Assign a terminal to the parent account](https://developer.nomba.com/nomba-api-reference/terminals/assign-a-terminal-to-the-parent-account.md): You can use this endpoint to assign a terminal to the parent account.
+- [Assign a terminal to a sub account](https://developer.nomba.com/nomba-api-reference/terminals/assign-a-terminal-to-a-sub-account.md): You can use this endpoint to assign a terminal to an sub account.
+- [Un-assign a terminal from the parent account](https://developer.nomba.com/nomba-api-reference/terminals/un-assign-a-terminal-from-the-parent-account.md): You can use this endpoint to un-assign a terminal from the parent account.
+- [Un-assign terminal from a sub account](https://developer.nomba.com/nomba-api-reference/terminals/un-assign-a-terminal-from-the-sub-account.md): You can use this endpoint to un-assign a terminal from a sub account.
+- [Send payment request to terminal](https://developer.nomba.com/nomba-api-reference/terminals/push-payment-request.md): You can use this endpoint to trigger a payment request on a nomba terminal
+- [Fetch credit/debit transactions on the parent account](https://developer.nomba.com/nomba-api-reference/transactions/fetch-creditdebit-transactions-on-the-parent-account.md): You can use this endpoint to fetch credit/debit transactions on the parent account.
+- [Fetch transactions on the parent account](https://developer.nomba.com/nomba-api-reference/transactions/fetch-transactions-on-the-parent-account.md): You can use this endpoint to fetch transactions on the parent account.
+- [Fetch transactions on a sub account](https://developer.nomba.com/nomba-api-reference/transactions/fetch-transactions-on-the-sub-account.md): You can use this endpoint to fetch transactions on a sub account.
+- [Filter parent account transactions](https://developer.nomba.com/nomba-api-reference/transactions/filter-parent-account-transactions.md): You can use this endpoint to filter transactions on the parent account.
+- [Filter sub account transactions](https://developer.nomba.com/nomba-api-reference/transactions/filter-sub-account-transactions.md): You can use this endpoint to filter transactions on a sub account.
+- [Fetch a single transaction on the parent account](https://developer.nomba.com/nomba-api-reference/requery/fetch-a-single-transaction-on-the-parent-account.md): You can use this endpoint to fetch a single transaction on the parent account.
+- [Fetch a single transaction on a sub account](https://developer.nomba.com/nomba-api-reference/requery/fetch-a-single-transaction-on-a-sub-account.md): You can use this endpoint to fetch a single transaction on a sub account
+- [Confirm a transaction's status by sessionId](https://developer.nomba.com/nomba-api-reference/requery/transaction-requery.md): This endpoint is for fetching (requerying) a transaction status.
+- [Payment methods](https://developer.nomba.com/nomba-api-reference/global-payout/payment-methods.md): Returns all supported payment methods and their method-specific requirements. Filter by code or name to retrieve a specific method.
+- [Mobile money providers](https://developer.nomba.com/nomba-api-reference/global-payout/mobile-money-providers.md): Returns available bank, institution, or mobile money providers. Use isMobileMoney=false for bank/institution providers and isMobileMoney=true for mobile money providers. Use code as institutionCode and displayName as institutionName in Authorize Transfer.
+- [Authorize transfer](https://developer.nomba.com/nomba-api-reference/global-payout/authorize-transfer.md): Initiate and authorize a cross-border transfer. Manages the complete transfer lifecycle from initiation to final authorization. Supports BANK, MobileMoney, INTERAC, FASTER_PAYMENTS, SEPA, ACH, and WIRE payment methods.
+- [Convert money](https://developer.nomba.com/nomba-api-reference/global-payout/convert-money.md): Calculate a currency conversion and lock an exchange rate before initiating a transfer.
+- [Fetch exchange rates](https://developer.nomba.com/nomba-api-reference/global-payout/fetch-exchange-rates.md): Retrieve the latest exchange rates for a currency pair before initiating a transfer.
+- [Fetch transaction](https://developer.nomba.com/nomba-api-reference/global-payout/fetch-transaction.md): Track the status of any Global Payout transaction using its transaction ID.
+- [Authorize exchange](https://developer.nomba.com/nomba-api-reference/global-payout/authorize-exchange.md): Transfer funds between your own accounts in different currencies.
+- [Fetch accounts](https://developer.nomba.com/nomba-api-reference/global-payout/fetch-accounts.md): Retrieve all of your currency wallets and their balances (e.g. CAD, USD) under your parent accountId. Use this to check a non-NGN balance instead of the NGN-only parent account endpoint.
+- [Fetch account](https://developer.nomba.com/nomba-api-reference/global-payout/fetch-account.md): Retrieve the details and balance of a single Global Payout account by its account ID.
+- [Fetch accounts sandbox](https://developer.nomba.com/nomba-api-reference/global-payout/fetch-accounts-sandbox.md): Sandbox version of Fetch Global Payout Accounts. Returns canned multi-currency account data for use in testing.
+- [Fetch account sandbox](https://developer.nomba.com/nomba-api-reference/global-payout/fetch-account-sandbox.md): Sandbox version of Fetch Global Payout Account. Returns canned account details and balance for the given account ID, for use in testing.
+- [Initiate mobile money inflow](https://developer.nomba.com/nomba-api-reference/global-collections/initiate-mobile-money-inflow.md): Trigger a mobile money collection request from a customer.
+- [Fetch drc inflow providers](https://developer.nomba.com/nomba-api-reference/global-collections/fetch-drc-inflow-providers.md): Returns the list of mobile money providers supported for DRC inflow. Use the returned code values as the topupVendor in the Initiate Mobile Money Inflow request.
+- [Fetch mobile money transaction](https://developer.nomba.com/nomba-api-reference/global-collections/fetch-mobile-money-transaction.md): Retrieve the status of an initiated mobile money collection.
+- [Fetch data plans available on a telco (network provider)](https://developer.nomba.com/nomba-api-reference/airtime-and-data-vending/fetch-data-plans-available-on-a-telco-network-provider.md): You can use this endpoint to fetch data plans available on a telco (network provider)
+- [Make airtime purchases via parent account](https://developer.nomba.com/nomba-api-reference/airtime-and-data-vending/make-airtime-purchases-via-parent-account.md): You can use this endpoint to make airtime purchases via parent account
+- [Vend data bundles via parent account](https://developer.nomba.com/nomba-api-reference/airtime-and-data-vending/vend-data-bundles-via-parent-account.md): You can use this endpoint to vend data via parent account
+- [Fetch discos/electricity providers](https://developer.nomba.com/nomba-api-reference/bills/fetch-electricity-providers.md): You can use this endpoint to fetch electricity providers/discos
+- [Vend electricity via parent account](https://developer.nomba.com/nomba-api-reference/bills/pay-for-electricity-via-parent-account.md): You can use this endpoint to vend electricity via parent account
+- [CableTv subscription via parent account](https://developer.nomba.com/nomba-api-reference/bills/subscribe-to-cabletv-via-parent-account.md): You can use this endpoint to make cable tv subscription via parent account
+- [Fetch customer information from a cable tv provider](https://developer.nomba.com/nomba-api-reference/bills/name-lookup-for-cabletv.md): This endpoint is for fetching customer information data
+- [Fetch customer information from an electricity provider](https://developer.nomba.com/nomba-api-reference/bills/name-lookup-for-electricity.md): This endpoint is for fetching customer information data from an electricity vending provider
+- [Fetch customer information from a betting provider](https://developer.nomba.com/nomba-api-reference/bills/name-lookup-for-betting.md): This endpoint is for fetching customer information data from a bet vending provider
+- [Fetch betting providers](https://developer.nomba.com/nomba-api-reference/bills/fetch-betting-providers.md): You can use this endpoint to fetch betting providers
+- [Vend betting via parent account](https://developer.nomba.com/nomba-api-reference/bills/pay-for-betting-via-parent-account.md): You can use this endpoint to vend betting via parent account
+- [Overview](https://developer.nomba.com/developer-resources/overview.md): Learn how to use our Plugins and SDKs for easier integration
+- [AI Tools Overview](https://developer.nomba.com/developer-resources/ai-tools/overview.md): Use AI coding assistants to integrate Nomba APIs faster
+- [Claude Code](https://developer.nomba.com/developer-resources/ai-tools/claude-code.md): Set up Claude Code for Nomba API integration
+- [Cursor](https://developer.nomba.com/developer-resources/ai-tools/cursor.md): Use Nomba API docs as context in Cursor
+- [Windsurf](https://developer.nomba.com/developer-resources/ai-tools/windsurf.md): Use Nomba API docs as context in Windsurf
+- [Product Update](https://developer.nomba.com/nomba-api-changelog/api/updates.md): Keep track of changes and upgrades to the Nomba API.
+
+## OpenAPI Specs
+
+- [openapi](https://developer.nomba.com/nomba-api-reference/openapi.json)
+- [openapi3_0_v_1_0_0](https://developer.nomba.com/openapi3_0_v_1_0_0)

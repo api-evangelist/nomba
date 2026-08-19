@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Saved Cards API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Saved Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user saved cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/checkout/user-card/:orderReference",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderReference",
+                "value": "",
+                "type": "path",
+                "description": "The order reference used to validate the user session."
+              }
+            ]
+          },
+          "docs": "Retrieves cards saved by a user during previous checkout transactions. Requires OTP validation before cards can be fetched to ensure the request is authorized by the card holder."
+        },
+        {
+          "info": {
+            "name": "Request OTP to validate user before fetching saved cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/request-user-otp",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Requests an OTP to be sent to the customer for validation before their saved cards can be retrieved. This ensures only the card holder can access their saved payment methods."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

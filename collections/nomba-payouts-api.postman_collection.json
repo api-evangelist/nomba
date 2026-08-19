@@ -1,0 +1,506 @@
+{
+  "item": [
+    {
+      "id": "c8e5641a-c597-4185-8acc-82517f072858",
+      "name": "Payouts",
+      "description": {
+        "content": "Endpoints for initiating and tracking cross-border payout transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ea2e78d7-36c1-4740-b1c5-dc78dd191b00",
+          "name": "Authorize a global payout transfer",
+          "request": {
+            "name": "Authorize a global payout transfer",
+            "description": {
+              "content": "Authorizes and initiates a cross-border payout transfer using a previously locked exchange rate. The transfer includes recipient details and the locked rate ID. Supported corridors include the United Kingdom (Faster Payments, up to 1,000,000 GBP, settled in 1-3 hours), Europe (SEPA, up to 100,000 EUR, settled in under 1 hour), Canada (Interac instant or bank transfer), and the DRC (Mobile Money instant or bank transfer).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "global-payout",
+                "transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rateLockId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"recipient\": {\n    \"name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"accountNumber\": \"<string>\",\n    \"sortCode\": \"<string>\",\n    \"iban\": \"<string>\",\n    \"bic\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phoneNumber\": \"<string>\"\n  },\n  \"merchantTxRef\": \"<string>\",\n  \"narration\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "46686270-627f-46da-864f-7442a5eecd4f",
+              "name": "Payout transfer initiated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rateLockId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"recipient\": {\n    \"name\": \"string\",\n    \"country\": \"GB\",\n    \"accountNumber\": \"string\",\n    \"sortCode\": \"802333\",\n    \"iban\": \"string\",\n    \"bic\": \"string\",\n    \"email\": \"7ZdWDWS@QhaJMRuAMaEVapEEFvLeMgQWRBo.qg\",\n    \"phoneNumber\": \"string\"\n  },\n  \"merchantTxRef\": \"<string>\",\n  \"narration\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\",\n  \"data\": {\n    \"transactionId\": \"string\",\n    \"status\": \"initiated\",\n    \"sourceCurrency\": \"string\",\n    \"destinationCurrency\": \"string\",\n    \"sourceAmount\": 8914.845064956544,\n    \"destinationAmount\": 6234.53388641844,\n    \"rate\": 5960.1111674341355,\n    \"fee\": 1505.1447630851023,\n    \"paymentMethod\": \"interac\",\n    \"merchantTxRef\": \"string\",\n    \"recipient\": {\n      \"name\": \"string\",\n      \"country\": \"GB\",\n      \"accountNumber\": \"string\",\n      \"sortCode\": \"046739\",\n      \"iban\": \"string\",\n      \"bic\": \"string\",\n      \"email\": \"4qJi8-CspWRGJS@dlg.kv\",\n      \"phoneNumber\": \"string\"\n    },\n    \"createdAt\": \"2016-02-25T09:50:44.537Z\",\n    \"settledAt\": \"1970-12-07T03:16:48.012Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbd3f89f-c57a-4896-be10-f86c18842d1e",
+              "name": "Invalid request or expired rate lock",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rateLockId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"recipient\": {\n    \"name\": \"string\",\n    \"country\": \"GB\",\n    \"accountNumber\": \"string\",\n    \"sortCode\": \"802333\",\n    \"iban\": \"string\",\n    \"bic\": \"string\",\n    \"email\": \"7ZdWDWS@QhaJMRuAMaEVapEEFvLeMgQWRBo.qg\",\n    \"phoneNumber\": \"string\"\n  },\n  \"merchantTxRef\": \"<string>\",\n  \"narration\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c05bb02-9e23-4b05-808a-2b28a48d79a5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rateLockId\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"recipient\": {\n    \"name\": \"string\",\n    \"country\": \"GB\",\n    \"accountNumber\": \"string\",\n    \"sortCode\": \"802333\",\n    \"iban\": \"string\",\n    \"bic\": \"string\",\n    \"email\": \"7ZdWDWS@QhaJMRuAMaEVapEEFvLeMgQWRBo.qg\",\n    \"phoneNumber\": \"string\"\n  },\n  \"merchantTxRef\": \"<string>\",\n  \"narration\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73a84c17-a3f9-4b6f-935f-91aa5b41529d",
+          "name": "Track a global payout transaction",
+          "request": {
+            "name": "Track a global payout transaction",
+            "description": {
+              "content": "Retrieves the current status and details of a global payout transaction. Provides end-to-end tracking from initiation through settlement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "global-payout",
+                "transfer",
+                ":transactionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionId",
+                  "description": "(Required) The unique identifier of the payout transaction to track."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the parent business account.",
+                "key": "accountId",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c628b98-5464-414d-844a-4e54a06f66f5",
+              "name": "Payout status retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "transfer",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the payout transaction to track."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"00\",\n  \"description\": \"Success\",\n  \"data\": {\n    \"transactionId\": \"string\",\n    \"status\": \"initiated\",\n    \"sourceCurrency\": \"string\",\n    \"destinationCurrency\": \"string\",\n    \"sourceAmount\": 8914.845064956544,\n    \"destinationAmount\": 6234.53388641844,\n    \"rate\": 5960.1111674341355,\n    \"fee\": 1505.1447630851023,\n    \"paymentMethod\": \"interac\",\n    \"merchantTxRef\": \"string\",\n    \"recipient\": {\n      \"name\": \"string\",\n      \"country\": \"GB\",\n      \"accountNumber\": \"string\",\n      \"sortCode\": \"046739\",\n      \"iban\": \"string\",\n      \"bic\": \"string\",\n      \"email\": \"4qJi8-CspWRGJS@dlg.kv\",\n      \"phoneNumber\": \"string\"\n    },\n    \"createdAt\": \"2016-02-25T09:50:44.537Z\",\n    \"settledAt\": \"1970-12-07T03:16:48.012Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fc0a5bb-c41a-41db-8119-23b16053380b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "transfer",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the payout transaction to track."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4876f7d-361c-416b-8b5a-c12dd066545a",
+              "name": "Payout transaction not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "global-payout",
+                    "transfer",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the payout transaction to track."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the parent business account.",
+                    "key": "accountId",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"description\": \"string\",\n  \"errors\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.nomba.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "01192cb8-1996-4136-92b5-4e405c316065",
+    "name": "Nomba Accounts Payouts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.\n\nContact Support:\n Name: Nomba Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

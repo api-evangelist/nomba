@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Transactions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch account transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/transactions/accounts",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number for paginated results."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of results per page."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of transactions associated with the authenticated account. Returns transaction details including amounts, statuses, types, and timestamps."
+        },
+        {
+          "info": {
+            "name": "Filter through transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/transactions/accounts",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Filters transactions using specified criteria such as transaction reference, status, source, type, terminal ID, or RRN. Returns a paginated list of matching transactions for reconciliation and reporting purposes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

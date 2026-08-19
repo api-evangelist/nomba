@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Checkout Orders API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checkout Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an online checkout order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/order",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new checkout order and returns a checkout link that can be loaded in a browser to allow the customer to initiate payment. The checkout supports Visa, Verve, Mastercard, USSD, bank transfers, and Nomba QR payments."
+        },
+        {
+          "info": {
+            "name": "Cancel a checkout transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/transaction/cancel",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancels an incomplete checkout transaction. This can be used when a customer abandons the payment flow or when the merchant needs to void an unpaid order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

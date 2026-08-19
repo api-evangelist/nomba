@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Card Charge API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card Charge",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit customer card details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/checkout-card-detail",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits customer card details to initiate a card payment. This is the first step in the server-to-server card charge flow. The API will return instructions for the next step, which typically involves OTP verification or 3D Secure authentication."
+        },
+        {
+          "info": {
+            "name": "Submit customer card OTP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/checkout-card-otp",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits the OTP (One-Time Password) sent to the customer phone or email to complete card payment verification. This is typically the second step in the server-to-server card charge flow after card details have been submitted."
+        },
+        {
+          "info": {
+            "name": "Resend OTP to customer phone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.nomba.com/v1/checkout/resend-card-otp",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resends the OTP to the customer phone number if the original OTP was not received, was incorrect, or has expired."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

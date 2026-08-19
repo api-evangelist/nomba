@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Nomba Accounts Order Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get order details by order reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.nomba.com/v1/checkout/order/:orderReference",
+            "headers": [
+              {
+                "name": "accountId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "orderReference",
+                "value": "",
+                "type": "path",
+                "description": "The unique order reference generated when the order was created."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a checkout order using the generated order reference. This can be used to check the current status and details of a payment order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

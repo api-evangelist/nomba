@@ -59,6 +59,8 @@ apis:
   humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
   baseURL: https://api.nomba.com
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -346,6 +348,8 @@ apis:
   humanURL: https://developer.nomba.com/nomba-api-reference/authenticate/obtain-access-token
   baseURL: https://api.nomba.com
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI

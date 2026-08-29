@@ -1,0 +1,83 @@
+slug: nomba
+provider: Nomba
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Card Charge
+  spec_file: nomba-card-charge-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.85
+  evidence: POST /v1/checkout/checkout-card-detail submitCustomerCardDetails; POST /v1/checkout/checkout-card-otp
+    submitCustomerCardOtp; schema CardChargeResponse
+  reason: Card payment authorisation flow including card detail submission and OTP verification — card
+    transaction processing/authorisation.
+- tag: Payouts
+  spec_file: nomba-payouts-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.85
+  evidence: POST /v1/global-payout/transfer createGlobalPayout Authorize a global payout transfer; schema
+    PayoutRecipient
+  reason: Authorises and tracks cross-border payout transfers — cross-border payment management.
+- tag: Transfers
+  spec_file: nomba-transfers-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.8
+  evidence: POST /v1/transfers/bank  transferToBank  Transfer to a bank account
+  reason: Bank account lookup/validation followed by initiation of bank and wallet transfers is payment
+    instruction capture, validation and authorisation.
+- tag: Checkout Orders
+  spec_file: nomba-checkout-orders-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.75
+  evidence: POST /v1/checkout/order createCheckoutOrder Create an online checkout order; POST /v1/checkout/transaction/cancel
+    cancelCheckoutTransaction
+  reason: Creates and cancels checkout payment orders — capture and authorisation of payment instructions
+    for merchant acceptance.
+- tag: Tokenized Cards
+  spec_file: nomba-tokenized-cards-api-openapi.yml
+  capability_id: BC-1340.70
+  capability_id_l1: BC-1340
+  capability_name: Card Transaction Processing Management
+  confidence: 0.75
+  evidence: POST /v1/checkout/tokenized-card-payment  chargeTokenizedCard  Charge a customer using tokenized
+    card data
+  reason: Operations list stored card tokens and submit card charges for authorisation, which is card
+    transaction processing on a payment platform rather than card issuance or generic account management.
+    Title mentioning 'Accounts' is unreliable; the operations are card charges.
+- tag: Corridors
+  spec_file: nomba-corridors-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.7
+  evidence: GET /v1/global-payout/corridors listPayoutCorridors List supported payout corridors
+  reason: Reference data for supported cross-border payout corridors on the global payout rail; supports
+    international payment management, though it is a lookup endpoint only.
+- tag: Exchange Rates
+  spec_file: nomba-exchange-rates-api-openapi.yml
+  capability_id: BC-1340.40
+  capability_id_l1: BC-1340
+  capability_name: Cross-Border Payment Management
+  confidence: 0.7
+  evidence: GET /v1/global-payout/rates fetchExchangeRates Fetch live exchange rates; POST /v1/global-payout/rates/lock
+    lockExchangeRate
+  reason: FX rate quoting and rate locking for cross-border payouts — FX within international payment
+    management rather than corporate treasury hedging.

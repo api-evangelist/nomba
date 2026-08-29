@@ -444,6 +444,9 @@ apis:
   - type: Documentation
     url: https://developer.nomba.com/docs/products/global-payout/introduction
 common:
+  - type: CapabilityMap
+    url: capabilities/nomba-capability-edges.yml
+    name: Nomba Business Capability Map
   - type: AgenticAccess
     url: agentic-access/nomba-agentic-access.yml
   - type: DomainSecurity

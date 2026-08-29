@@ -4,6 +4,17 @@ description: >-
   Nomba is a Nigerian fintech platform that provides payment infrastructure for businesses, offering APIs for payment
   acceptance, transfers, virtual accounts, and cross-border payouts. Their developer platform enables merchants and
   platforms to integrate card payments, bank transfers, USSD, and QR code payments into applications.
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve

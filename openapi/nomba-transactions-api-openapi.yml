@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nomba Accounts Transactions API
-  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  title: Nomba Transactions API
+  description: The Nomba Transactions API allows developers to retrieve and manage transaction records. It provides endpoints for fetching account transaction history, filtering transactions by various criteria, and querying transaction details. This API is essential for building reporting dashboards, reconciliation tools, and transaction monitoring systems on top of the Nomba platform.
   version: 1.0.0
   contact:
     name: Nomba Developer Support
@@ -144,6 +144,45 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+    TransactionListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of transactions matching the query criteria.
+              items:
+                $ref: '#/components/schemas/Transaction'
+            cursor:
+              type: string
+              description: Pagination cursor for the next page of results.
+            totalCount:
+              type: integer
+              description: Total number of transactions matching the criteria.
     Transaction:
       type: object
       properties:
@@ -210,45 +249,6 @@ components:
           type: string
           format: date-time
           description: The date and time the transaction was last updated.
-    TransactionListResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of transactions matching the query criteria.
-              items:
-                $ref: '#/components/schemas/Transaction'
-            cursor:
-              type: string
-              description: Pagination cursor for the next page of results.
-            totalCount:
-              type: integer
-              description: Total number of transactions matching the criteria.
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
   parameters:
     accountId:
       name: accountId
@@ -264,5 +264,5 @@ components:
       bearerFormat: JWT
       description: OAuth2 bearer token obtained from the Nomba Authentication API.
 externalDocs:
-  description: Nomba Accounts API Documentation
-  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  description: Nomba Transactions API Documentation
+  url: https://developer.nomba.com/products/transactions/fetch-account-transactions

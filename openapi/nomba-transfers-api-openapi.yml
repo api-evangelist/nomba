@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nomba Accounts Transfers API
-  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  title: Nomba Transfers API
+  description: The Nomba Transfers API provides endpoints for initiating and managing fund transfers. Developers can look up bank codes and names, verify account details, initiate transfers to Nigerian bank accounts, and transfer funds between Nomba wallets. The API supports domestic money transfers and provides the necessary bank metadata for building payment flows within applications.
   version: 1.0.0
   contact:
     name: Nomba Developer Support
@@ -215,59 +215,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    BankListResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of supported banks.
-              items:
-                $ref: '#/components/schemas/Bank'
-    BankAccountLookupResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            accountNumber:
-              type: string
-              description: The verified bank account number.
-            accountName:
-              type: string
-              description: The name of the account holder as registered with the bank.
-            bankCode:
-              type: string
-              description: The bank code of the financial institution.
-    Bank:
-      type: object
-      properties:
-        bankCode:
-          type: string
-          description: The unique code identifying the bank.
-          example: 058
-        bankName:
-          type: string
-          description: The official name of the bank.
-          example: Guaranty Trust Bank
     ErrorResponse:
       type: object
       properties:
@@ -321,6 +268,59 @@ components:
               type: string
               format: date-time
               description: The date and time the transfer was initiated.
+    BankListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of supported banks.
+              items:
+                $ref: '#/components/schemas/Bank'
+    Bank:
+      type: object
+      properties:
+        bankCode:
+          type: string
+          description: The unique code identifying the bank.
+          example: 058
+        bankName:
+          type: string
+          description: The official name of the bank.
+          example: Guaranty Trust Bank
+    BankAccountLookupResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            accountNumber:
+              type: string
+              description: The verified bank account number.
+            accountName:
+              type: string
+              description: The name of the account holder as registered with the bank.
+            bankCode:
+              type: string
+              description: The bank code of the financial institution.
   parameters:
     accountId:
       name: accountId
@@ -336,5 +336,5 @@ components:
       bearerFormat: JWT
       description: OAuth2 bearer token obtained from the Nomba Authentication API.
 externalDocs:
-  description: Nomba Accounts API Documentation
-  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  description: Nomba Transfers API Documentation
+  url: https://developer.nomba.com/nomba-api-reference/transfers/fetch-bank-codes-and-names

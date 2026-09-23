@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nomba Accounts Exchange Rates API
-  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  title: Nomba Global Payout Exchange Rates API
+  description: The Nomba Global Payout API is a single integration point that enables cross-border payment operators, remittance platforms, and fintechs to collect funds in Nigerian Naira or stablecoins (USDT/USDC) and trigger instant disbursements to the United Kingdom via Faster Payments, Europe via SEPA, Canada via Interac and bank transfer, and the Democratic Republic of Congo via Mobile Money.
   version: 1.0.0
   contact:
     name: Nomba Developer Support
@@ -161,6 +161,20 @@ components:
               type: string
               format: date-time
               description: The date and time the rate lock expires (5-minute window).
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
     ExchangeRateListResponse:
       type: object
       properties:
@@ -199,20 +213,6 @@ components:
           type: string
           format: date-time
           description: The date and time the rate was last updated.
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
   parameters:
     accountId:
       name: accountId
@@ -228,5 +228,5 @@ components:
       bearerFormat: JWT
       description: OAuth2 bearer token obtained from the Nomba Authentication API.
 externalDocs:
-  description: Nomba Accounts API Documentation
-  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  description: Nomba Global Payout Documentation
+  url: https://developer.nomba.com/docs/products/global-payout/introduction

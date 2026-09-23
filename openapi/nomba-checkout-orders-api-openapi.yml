@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nomba Accounts Checkout Orders API
-  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  title: Nomba Online Checkout Checkout Orders API
+  description: The Nomba Online Checkout API enables developers to create checkout orders and process payments through multiple channels. It supports Visa, Verve, and Mastercard payments, as well as USSD, bank transfers, and Nomba QR payments. The API includes tokenized card payment capabilities, allowing merchants to charge returning customers without requiring them to re-enter card details.
   version: 1.0.0
   contact:
     name: Nomba Developer Support
@@ -134,6 +134,20 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
     CheckoutOrderResponse:
       type: object
       properties:
@@ -180,20 +194,6 @@ components:
           type: string
           description: Human-readable description of the response.
           example: Success
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
   parameters:
     accountId:
       name: accountId
@@ -209,5 +209,5 @@ components:
       bearerFormat: JWT
       description: OAuth2 bearer token obtained from the Nomba Authentication API.
 externalDocs:
-  description: Nomba Accounts API Documentation
-  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  description: Nomba Online Checkout Documentation
+  url: https://developer.nomba.com/nomba-api-reference/online-checkout/create-an-online-checkout-order

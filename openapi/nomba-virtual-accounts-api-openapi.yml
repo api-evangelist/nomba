@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Nomba Accounts Virtual Accounts API
-  description: The Nomba Accounts API enables developers to manage business accounts on the Nomba platform. It provides endpoints for retrieving account details, fetching the parent account balance, and listing terminals assigned to an account. This API serves as the foundation for account management operations within the Nomba ecosystem.
+  title: Nomba Virtual Accounts API
+  description: The Nomba Virtual Accounts API allows developers to create and manage virtual bank accounts for receiving payments. There is no fixed limit to the number of virtual accounts that can be created for customers. The API supports creating, fetching, filtering, updating, and expiring virtual accounts, enabling businesses to collect payments via bank transfers with unique account numbers assigned to individual customers or transactions.
   version: 1.0.0
   contact:
     name: Nomba Developer Support
@@ -243,6 +243,17 @@ components:
           description: List of specific error details.
           items:
             type: string
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
     VirtualAccountListResponse:
       type: object
       properties:
@@ -294,17 +305,6 @@ components:
           type: string
           format: date-time
           description: The date and time the virtual account was created.
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
     VirtualAccountResponse:
       type: object
       properties:
@@ -319,18 +319,18 @@ components:
         data:
           $ref: '#/components/schemas/VirtualAccount'
   parameters:
-    accountRef:
-      name: accountRef
-      in: path
-      required: true
-      description: The unique reference identifier of the virtual account.
-      schema:
-        type: string
     accountId:
       name: accountId
       in: header
       required: true
       description: The unique identifier of the parent business account.
+      schema:
+        type: string
+    accountRef:
+      name: accountRef
+      in: path
+      required: true
+      description: The unique reference identifier of the virtual account.
       schema:
         type: string
   securitySchemes:
@@ -340,5 +340,5 @@ components:
       bearerFormat: JWT
       description: OAuth2 bearer token obtained from the Nomba Authentication API.
 externalDocs:
-  description: Nomba Accounts API Documentation
-  url: https://developer.nomba.com/nomba-api-reference/accounts/fetch-terminals-assigned-to-an-account
+  description: Nomba Virtual Accounts Documentation
+  url: https://developer.nomba.com/nomba-api-reference/virtual-accounts/create-virtual-account

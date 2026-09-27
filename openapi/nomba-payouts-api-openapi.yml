@@ -124,6 +124,47 @@ components:
           description: List of specific error details.
           items:
             type: string
+    PayoutRecipient:
+      type: object
+      required:
+      - name
+      - country
+      properties:
+        name:
+          type: string
+          description: The full name of the recipient.
+        country:
+          type: string
+          description: The ISO 3166-1 alpha-2 country code of the recipient.
+          enum:
+          - GB
+          - DE
+          - FR
+          - NL
+          - BE
+          - CA
+          - CD
+          example: GB
+        accountNumber:
+          type: string
+          description: The recipient bank account number or IBAN.
+        sortCode:
+          type: string
+          description: The UK sort code, required for Faster Payments.
+          pattern: ^\d{6}$
+        iban:
+          type: string
+          description: The IBAN, required for SEPA transfers.
+        bic:
+          type: string
+          description: The BIC/SWIFT code for the recipient bank.
+        email:
+          type: string
+          format: email
+          description: The recipient email, required for Interac transfers.
+        phoneNumber:
+          type: string
+          description: The recipient phone number, required for Mobile Money.
     PayoutResponse:
       type: object
       properties:
@@ -193,47 +234,6 @@ components:
               type: string
               format: date-time
               description: The date and time the payout was settled, if applicable.
-    PayoutRecipient:
-      type: object
-      required:
-      - name
-      - country
-      properties:
-        name:
-          type: string
-          description: The full name of the recipient.
-        country:
-          type: string
-          description: The ISO 3166-1 alpha-2 country code of the recipient.
-          enum:
-          - GB
-          - DE
-          - FR
-          - NL
-          - BE
-          - CA
-          - CD
-          example: GB
-        accountNumber:
-          type: string
-          description: The recipient bank account number or IBAN.
-        sortCode:
-          type: string
-          description: The UK sort code, required for Faster Payments.
-          pattern: ^\d{6}$
-        iban:
-          type: string
-          description: The IBAN, required for SEPA transfers.
-        bic:
-          type: string
-          description: The BIC/SWIFT code for the recipient bank.
-        email:
-          type: string
-          format: email
-          description: The recipient email, required for Interac transfers.
-        phoneNumber:
-          type: string
-          description: The recipient phone number, required for Mobile Money.
   parameters:
     accountId:
       name: accountId

@@ -144,45 +144,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
-    TransactionListResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of transactions matching the query criteria.
-              items:
-                $ref: '#/components/schemas/Transaction'
-            cursor:
-              type: string
-              description: Pagination cursor for the next page of results.
-            totalCount:
-              type: integer
-              description: Total number of transactions matching the criteria.
     Transaction:
       type: object
       properties:
@@ -249,6 +210,45 @@ components:
           type: string
           format: date-time
           description: The date and time the transaction was last updated.
+    TransactionListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of transactions matching the query criteria.
+              items:
+                $ref: '#/components/schemas/Transaction'
+            cursor:
+              type: string
+              description: Pagination cursor for the next page of results.
+            totalCount:
+              type: integer
+              description: Total number of transactions matching the criteria.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
   parameters:
     accountId:
       name: accountId

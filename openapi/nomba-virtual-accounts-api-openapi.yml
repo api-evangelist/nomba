@@ -229,6 +229,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
     ErrorResponse:
       type: object
       properties:
@@ -243,39 +254,6 @@ components:
           description: List of specific error details.
           items:
             type: string
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-    VirtualAccountListResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of virtual accounts matching the filter criteria.
-              items:
-                $ref: '#/components/schemas/VirtualAccount'
-            cursor:
-              type: string
-              description: Pagination cursor for retrieving the next page of results.
     VirtualAccount:
       type: object
       properties:
@@ -318,19 +296,41 @@ components:
           example: Success
         data:
           $ref: '#/components/schemas/VirtualAccount'
+    VirtualAccountListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of virtual accounts matching the filter criteria.
+              items:
+                $ref: '#/components/schemas/VirtualAccount'
+            cursor:
+              type: string
+              description: Pagination cursor for retrieving the next page of results.
   parameters:
-    accountId:
-      name: accountId
-      in: header
-      required: true
-      description: The unique identifier of the parent business account.
-      schema:
-        type: string
     accountRef:
       name: accountRef
       in: path
       required: true
       description: The unique reference identifier of the virtual account.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
       schema:
         type: string
   securitySchemes:

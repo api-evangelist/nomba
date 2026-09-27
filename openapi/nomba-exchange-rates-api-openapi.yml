@@ -175,25 +175,6 @@ components:
           description: List of specific error details.
           items:
             type: string
-    ExchangeRateListResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of available exchange rates.
-              items:
-                $ref: '#/components/schemas/ExchangeRate'
     ExchangeRate:
       type: object
       properties:
@@ -213,6 +194,25 @@ components:
           type: string
           format: date-time
           description: The date and time the rate was last updated.
+    ExchangeRateListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of available exchange rates.
+              items:
+                $ref: '#/components/schemas/ExchangeRate'
   parameters:
     accountId:
       name: accountId

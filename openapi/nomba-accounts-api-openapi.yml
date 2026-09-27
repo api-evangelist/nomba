@@ -107,6 +107,29 @@ components:
           description: List of specific error details.
           items:
             type: string
+    Account:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: The unique identifier for the account.
+        accountName:
+          type: string
+          description: The name associated with the account.
+        accountType:
+          type: string
+          description: The type of the account.
+        status:
+          type: string
+          description: The current status of the account.
+        currency:
+          type: string
+          description: The currency associated with the account.
+          example: NGN
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time the account was created.
     AccountBalanceResponse:
       type: object
       properties:
@@ -132,6 +155,22 @@ components:
               type: string
               description: The currency of the balance.
               example: NGN
+    Terminal:
+      type: object
+      properties:
+        terminalId:
+          type: string
+          description: The unique identifier for the terminal.
+        serialNumber:
+          type: string
+          description: The serial number of the POS terminal.
+        status:
+          type: string
+          description: The current status of the terminal.
+        assignedAt:
+          type: string
+          format: date-time
+          description: The date and time the terminal was assigned to the account.
     AccountDetailsResponse:
       type: object
       properties:
@@ -164,58 +203,19 @@ components:
               description: List of terminals assigned to the account.
               items:
                 $ref: '#/components/schemas/Terminal'
-    Account:
-      type: object
-      properties:
-        accountId:
-          type: string
-          description: The unique identifier for the account.
-        accountName:
-          type: string
-          description: The name associated with the account.
-        accountType:
-          type: string
-          description: The type of the account.
-        status:
-          type: string
-          description: The current status of the account.
-        currency:
-          type: string
-          description: The currency associated with the account.
-          example: NGN
-        createdAt:
-          type: string
-          format: date-time
-          description: The date and time the account was created.
-    Terminal:
-      type: object
-      properties:
-        terminalId:
-          type: string
-          description: The unique identifier for the terminal.
-        serialNumber:
-          type: string
-          description: The serial number of the POS terminal.
-        status:
-          type: string
-          description: The current status of the terminal.
-        assignedAt:
-          type: string
-          format: date-time
-          description: The date and time the terminal was assigned to the account.
   parameters:
-    accountId:
-      name: accountId
-      in: header
-      required: true
-      description: The unique identifier of the parent business account.
-      schema:
-        type: string
     accountIdPath:
       name: accountId
       in: path
       required: true
       description: The unique identifier of the account to fetch terminals for.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
       schema:
         type: string
   securitySchemes:

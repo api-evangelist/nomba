@@ -154,17 +154,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
     ErrorResponse:
       type: object
       properties:
@@ -179,6 +168,17 @@ components:
           description: List of specific error details.
           items:
             type: string
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
     TokenResponse:
       type: object
       properties:

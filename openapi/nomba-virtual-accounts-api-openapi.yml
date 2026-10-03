@@ -229,17 +229,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
     ErrorResponse:
       type: object
       properties:
@@ -254,6 +243,30 @@ components:
           description: List of specific error details.
           items:
             type: string
+    VirtualAccountResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          $ref: '#/components/schemas/VirtualAccount'
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
     VirtualAccount:
       type: object
       properties:
@@ -283,19 +296,6 @@ components:
           type: string
           format: date-time
           description: The date and time the virtual account was created.
-    VirtualAccountResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          $ref: '#/components/schemas/VirtualAccount'
     VirtualAccountListResponse:
       type: object
       properties:
@@ -319,18 +319,18 @@ components:
               type: string
               description: Pagination cursor for retrieving the next page of results.
   parameters:
-    accountRef:
-      name: accountRef
-      in: path
-      required: true
-      description: The unique reference identifier of the virtual account.
-      schema:
-        type: string
     accountId:
       name: accountId
       in: header
       required: true
       description: The unique identifier of the parent business account.
+      schema:
+        type: string
+    accountRef:
+      name: accountRef
+      in: path
+      required: true
+      description: The unique reference identifier of the virtual account.
       schema:
         type: string
   securitySchemes:

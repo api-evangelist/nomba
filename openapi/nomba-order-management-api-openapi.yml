@@ -54,20 +54,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
     OrderDetailsResponse:
       type: object
       properties:
@@ -104,6 +90,20 @@ components:
               type: string
               format: date-time
               description: The date and time the order was created.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
   parameters:
     accountId:
       name: accountId

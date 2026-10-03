@@ -143,6 +143,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
   schemas:
     Transaction:
       type: object
@@ -210,6 +218,20 @@ components:
           type: string
           format: date-time
           description: The date and time the transaction was last updated.
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
     TransactionListResponse:
       type: object
       properties:
@@ -235,28 +257,6 @@ components:
             totalCount:
               type: integer
               description: Total number of transactions matching the criteria.
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
-  parameters:
-    accountId:
-      name: accountId
-      in: header
-      required: true
-      description: The unique identifier of the parent business account.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

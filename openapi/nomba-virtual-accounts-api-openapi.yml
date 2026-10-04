@@ -229,6 +229,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    VirtualAccountListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of virtual accounts matching the filter criteria.
+              items:
+                $ref: '#/components/schemas/VirtualAccount'
+            cursor:
+              type: string
+              description: Pagination cursor for retrieving the next page of results.
     ErrorResponse:
       type: object
       properties:
@@ -243,30 +265,6 @@ components:
           description: List of specific error details.
           items:
             type: string
-    VirtualAccountResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          $ref: '#/components/schemas/VirtualAccount'
-    SuccessResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
     VirtualAccount:
       type: object
       properties:
@@ -296,7 +294,18 @@ components:
           type: string
           format: date-time
           description: The date and time the virtual account was created.
-    VirtualAccountListResponse:
+    SuccessResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+    VirtualAccountResponse:
       type: object
       properties:
         code:
@@ -308,16 +317,7 @@ components:
           description: Human-readable description of the response.
           example: Success
         data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of virtual accounts matching the filter criteria.
-              items:
-                $ref: '#/components/schemas/VirtualAccount'
-            cursor:
-              type: string
-              description: Pagination cursor for retrieving the next page of results.
+          $ref: '#/components/schemas/VirtualAccount'
   parameters:
     accountId:
       name: accountId

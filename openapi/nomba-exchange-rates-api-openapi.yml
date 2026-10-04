@@ -122,6 +122,25 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ExchangeRate:
+      type: object
+      properties:
+        sourceCurrency:
+          type: string
+          description: The source currency code.
+          example: NGN
+        destinationCurrency:
+          type: string
+          description: The destination currency code.
+          example: GBP
+        rate:
+          type: number
+          format: double
+          description: The current indicative exchange rate.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time the rate was last updated.
     ErrorResponse:
       type: object
       properties:
@@ -194,25 +213,6 @@ components:
               type: string
               format: date-time
               description: The date and time the rate lock expires (5-minute window).
-    ExchangeRate:
-      type: object
-      properties:
-        sourceCurrency:
-          type: string
-          description: The source currency code.
-          example: NGN
-        destinationCurrency:
-          type: string
-          description: The destination currency code.
-          example: GBP
-        rate:
-          type: number
-          format: double
-          description: The current indicative exchange rate.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The date and time the rate was last updated.
   parameters:
     accountId:
       name: accountId

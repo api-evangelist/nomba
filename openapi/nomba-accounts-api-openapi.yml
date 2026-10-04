@@ -92,7 +92,38 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
+  parameters:
+    accountIdPath:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier of the account to fetch terminals for.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
   schemas:
+    Terminal:
+      type: object
+      properties:
+        terminalId:
+          type: string
+          description: The unique identifier for the terminal.
+        serialNumber:
+          type: string
+          description: The serial number of the POS terminal.
+        status:
+          type: string
+          description: The current status of the terminal.
+        assignedAt:
+          type: string
+          format: date-time
+          description: The date and time the terminal was assigned to the account.
     TerminalsResponse:
       type: object
       properties:
@@ -112,6 +143,20 @@ components:
               description: List of terminals assigned to the account.
               items:
                 $ref: '#/components/schemas/Terminal'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
     Account:
       type: object
       properties:
@@ -135,33 +180,6 @@ components:
           type: string
           format: date-time
           description: The date and time the account was created.
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
-    AccountDetailsResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          $ref: '#/components/schemas/Account'
     AccountBalanceResponse:
       type: object
       properties:
@@ -187,37 +205,19 @@ components:
               type: string
               description: The currency of the balance.
               example: NGN
-    Terminal:
+    AccountDetailsResponse:
       type: object
       properties:
-        terminalId:
+        code:
           type: string
-          description: The unique identifier for the terminal.
-        serialNumber:
+          description: Response status code.
+          example: '00'
+        description:
           type: string
-          description: The serial number of the POS terminal.
-        status:
-          type: string
-          description: The current status of the terminal.
-        assignedAt:
-          type: string
-          format: date-time
-          description: The date and time the terminal was assigned to the account.
-  parameters:
-    accountIdPath:
-      name: accountId
-      in: path
-      required: true
-      description: The unique identifier of the account to fetch terminals for.
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: header
-      required: true
-      description: The unique identifier of the parent business account.
-      schema:
-        type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          $ref: '#/components/schemas/Account'
   securitySchemes:
     bearerAuth:
       type: http

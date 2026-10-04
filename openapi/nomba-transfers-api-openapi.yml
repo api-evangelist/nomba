@@ -215,6 +215,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Bank:
+      type: object
+      properties:
+        bankCode:
+          type: string
+          description: The unique code identifying the bank.
+          example: 058
+        bankName:
+          type: string
+          description: The official name of the bank.
+          example: Guaranty Trust Bank
     ErrorResponse:
       type: object
       properties:
@@ -229,17 +240,6 @@ components:
           description: List of specific error details.
           items:
             type: string
-    Bank:
-      type: object
-      properties:
-        bankCode:
-          type: string
-          description: The unique code identifying the bank.
-          example: 058
-        bankName:
-          type: string
-          description: The official name of the bank.
-          example: Guaranty Trust Bank
     TransferResponse:
       type: object
       properties:

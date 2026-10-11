@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/nomba/integrations
+- https://n8n.io/integrations/nomba/
+- https://composio.dev/toolkits/nomba
+- https://monid.ai/tools/nomba
+checked:
+- https://composio.dev/toolkits/nomba
+- https://monid.ai/tools/nomba
+- https://n8n.io/integrations/nomba/
+- https://zapier.com/apps/nomba/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

@@ -92,22 +92,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
-  parameters:
-    accountIdPath:
-      name: accountId
-      in: path
-      required: true
-      description: The unique identifier of the account to fetch terminals for.
-      schema:
-        type: string
-    accountId:
-      name: accountId
-      in: header
-      required: true
-      description: The unique identifier of the parent business account.
-      schema:
-        type: string
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error status code.
+        description:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: array
+          description: List of specific error details.
+          items:
+            type: string
+    AccountBalanceResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            accountId:
+              type: string
+              description: The unique identifier of the account.
+            balance:
+              type: number
+              format: double
+              description: The current available balance of the account.
+            currency:
+              type: string
+              description: The currency of the balance.
+              example: NGN
     Terminal:
       type: object
       properties:
@@ -143,20 +167,6 @@ components:
               description: List of terminals assigned to the account.
               items:
                 $ref: '#/components/schemas/Terminal'
-    ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error status code.
-        description:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: array
-          description: List of specific error details.
-          items:
-            type: string
     Account:
       type: object
       properties:
@@ -180,31 +190,6 @@ components:
           type: string
           format: date-time
           description: The date and time the account was created.
-    AccountBalanceResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            accountId:
-              type: string
-              description: The unique identifier of the account.
-            balance:
-              type: number
-              format: double
-              description: The current available balance of the account.
-            currency:
-              type: string
-              description: The currency of the balance.
-              example: NGN
     AccountDetailsResponse:
       type: object
       properties:
@@ -218,6 +203,21 @@ components:
           example: Success
         data:
           $ref: '#/components/schemas/Account'
+  parameters:
+    accountIdPath:
+      name: accountId
+      in: path
+      required: true
+      description: The unique identifier of the account to fetch terminals for.
+      schema:
+        type: string
+    accountId:
+      name: accountId
+      in: header
+      required: true
+      description: The unique identifier of the parent business account.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -107,25 +107,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    TokenizedCardListResponse:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Response status code.
-          example: '00'
-        description:
-          type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of tokenized cards.
-              items:
-                $ref: '#/components/schemas/TokenizedCard'
     ErrorResponse:
       type: object
       properties:
@@ -140,33 +121,6 @@ components:
           description: List of specific error details.
           items:
             type: string
-    TokenizedCard:
-      type: object
-      properties:
-        tokenKey:
-          type: string
-          description: The unique token representing the saved card.
-        cardType:
-          type: string
-          description: The card network brand.
-          enum:
-          - Visa
-          - Mastercard
-          - Verve
-        last4:
-          type: string
-          description: The last 4 digits of the card number.
-          pattern: ^\d{4}$
-        expiryMonth:
-          type: string
-          description: The expiry month of the card.
-        expiryYear:
-          type: string
-          description: The expiry year of the card.
-        customerEmail:
-          type: string
-          format: email
-          description: The email address of the card holder.
     ChargeResponse:
       type: object
       properties:
@@ -198,6 +152,52 @@ components:
               type: number
               format: double
               description: The amount charged.
+    TokenizedCardListResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Response status code.
+          example: '00'
+        description:
+          type: string
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of tokenized cards.
+              items:
+                $ref: '#/components/schemas/TokenizedCard'
+    TokenizedCard:
+      type: object
+      properties:
+        tokenKey:
+          type: string
+          description: The unique token representing the saved card.
+        cardType:
+          type: string
+          description: The card network brand.
+          enum:
+          - Visa
+          - Mastercard
+          - Verve
+        last4:
+          type: string
+          description: The last 4 digits of the card number.
+          pattern: ^\d{4}$
+        expiryMonth:
+          type: string
+          description: The expiry month of the card.
+        expiryYear:
+          type: string
+          description: The expiry year of the card.
+        customerEmail:
+          type: string
+          format: email
+          description: The email address of the card holder.
   parameters:
     accountId:
       name: accountId

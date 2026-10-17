@@ -215,17 +215,25 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Bank:
+    BankListResponse:
       type: object
       properties:
-        bankCode:
+        code:
           type: string
-          description: The unique code identifying the bank.
-          example: 058
-        bankName:
+          description: Response status code.
+          example: '00'
+        description:
           type: string
-          description: The official name of the bank.
-          example: Guaranty Trust Bank
+          description: Human-readable description of the response.
+          example: Success
+        data:
+          type: object
+          properties:
+            results:
+              type: array
+              description: List of supported banks.
+              items:
+                $ref: '#/components/schemas/Bank'
     ErrorResponse:
       type: object
       properties:
@@ -279,25 +287,17 @@ components:
               type: string
               format: date-time
               description: The date and time the transfer was initiated.
-    BankListResponse:
+    Bank:
       type: object
       properties:
-        code:
+        bankCode:
           type: string
-          description: Response status code.
-          example: '00'
-        description:
+          description: The unique code identifying the bank.
+          example: 058
+        bankName:
           type: string
-          description: Human-readable description of the response.
-          example: Success
-        data:
-          type: object
-          properties:
-            results:
-              type: array
-              description: List of supported banks.
-              items:
-                $ref: '#/components/schemas/Bank'
+          description: The official name of the bank.
+          example: Guaranty Trust Bank
     BankAccountLookupResponse:
       type: object
       properties:
